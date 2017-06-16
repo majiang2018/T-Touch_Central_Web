@@ -1,0 +1,95 @@
+﻿@model DATA.model.Scales
+@{
+    ViewBag.Title = "删除";
+}
+
+<h2>删除</h2>
+
+<h3>您确定要删除吗?</h3>
+<div>
+    <h4>设备</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("店号")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Shop_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("部门")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Branch_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("称号")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pos_No)
+        </dd>
+
+ 
+        <dt>
+            @Html.DisplayName("称名")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ScaleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Ip地址")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IpAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("启用")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Enable)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("屏幕保护")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Images)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("主背景图片")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Images1)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("主背景颜色")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="删除" class="btn btn-default" /> |
+            @Html.ActionLink("返回", "Index")
+        </div>
+    }
+</div>

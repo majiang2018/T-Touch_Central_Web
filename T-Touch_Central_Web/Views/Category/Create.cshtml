@@ -1,0 +1,72 @@
+﻿@model DATA.model.Category
+@{
+    ViewBag.Title = "新建";
+}
+
+<h2>新建</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+            <h4>&nbsp;&nbsp;&nbsp;分类信息</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.Label("序号", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    <input id="category_num" type="text" name="category_num" required class="form-control">
+                    @Html.ValidationMessageFor(model => model.category_num, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("类别名称", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.category_name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.category_name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+          
+            <div class="form-group">
+                @Html.Label("描述", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.describ, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.describ, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("顺序", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.order_index, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.order_index, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("图片", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.images, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.images, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    </div>
+    <br />
+        <div class="form-group">
+            <div>
+                <input type="submit" value="新建" class="btn btn-default" />
+            </div>
+        </div>
+
+}
+
+<div>
+    @Html.ActionLink("返回", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

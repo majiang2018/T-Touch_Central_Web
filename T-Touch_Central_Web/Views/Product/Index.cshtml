@@ -1,0 +1,275 @@
+﻿@model IEnumerable<DATA.model.Product>
+@{
+    ViewBag.Title = "产品";
+}
+
+<h2>产品</h2>
+
+<p>
+    @Html.ActionLink("新建", "Create")
+</p>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th style="white-space:nowrap">
+                @Html.DisplayName("操作")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("商品编号")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("商品名称")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("价格")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("销售价格")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("预扣重")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("商品条码")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("简写")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("价格单位")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("税率")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("图片")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("音频")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("产地")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("个")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("标签格式")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("禁用")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("条码格式")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("追溯")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("电子标签")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("货架号")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("温度范围")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("保存期限")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("推荐")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("成分")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("营养值")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("生产日")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("备注1")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("备注2")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("备注3")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("备注4")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("备注5")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("备注6")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("备注7")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("备注8")
+            </th>
+
+            <th style="white-space:nowrap">
+                @Html.DisplayName("部门")
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="white-space:nowrap">
+                    @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("删除", "Delete", new { id = item.Id })
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.product_num)
+                </td>
+                <td style="white-space:nowrap"> 
+                    @Html.DisplayFor(modelItem => item.product_name)
+                </td>
+
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.price)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.price_lowest)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.tare)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.barcode)
+                </td>
+
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.abbr)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.priceUnit)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.tax_num)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.image)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.audio)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.category)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.department)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.area)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.pcs_flag)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.labelFormat)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.disabled)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.barcode_format)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.trace)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.etag_id)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.mark_num)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.recommend)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.ingredient)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.nutritional)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.produced)
+                </td>
+
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.remark1)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.remark2)
+                </td>
+
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.remark3)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.remark4)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.remark5)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.remark6)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.remark7)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.remark8)
+                </td>
+
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.branch_id)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</div>

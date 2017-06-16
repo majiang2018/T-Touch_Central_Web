@@ -1,0 +1,64 @@
+﻿@model IEnumerable<DATA.model.Category>
+@{
+    ViewBag.Title = "分类信息";
+}
+<h2>分类信息</h2>
+<p>
+    @Html.ActionLink("新建", "Create")
+</p>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                操作
+            </th>
+            <th>
+                @Html.DisplayName("序号")
+            </th>
+            <th>
+                @Html.DisplayName("类别名称")
+            </th>
+            <th>
+                @Html.DisplayName("图片")
+            </th>
+            <th>
+                @Html.DisplayName("描述")
+            </th>
+            
+            <th>
+                @Html.DisplayName("顺序")
+            </th>
+         
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="white-space:nowrap">
+                    @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("删除", "Delete", new { id = item.Id })
+                </td>
+                 
+                <td>
+                    @Html.DisplayFor(modelItem => item.category_num)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.category_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.image)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.describ)
+                </td>
+             
+                <td>
+                    @Html.DisplayFor(modelItem => item.order_index)
+                </td>
+ 
+            </tr>
+        }
+
+    </table>
+</div>
+

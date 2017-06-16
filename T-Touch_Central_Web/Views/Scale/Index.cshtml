@@ -1,0 +1,138 @@
+﻿@model IEnumerable<DATA.model.Scales>
+@{
+    ViewBag.Title = "设备管理";
+}
+<h2>设备管理</h2>
+@using (Html.BeginForm())
+{
+    <br />
+        @Html.TextBox("ScaleNo", "", new { style = "width:250px;", placeholder = "称号" })
+
+        <button id="btn_Search" name="btn_Search" type="submit" class="btn btn-default btn-sm">
+            <i class="glyphicon glyphicon-search"></i> 搜索
+        </button>
+
+        <button id="btn_Add" name="btn_Add" type="button" class="btn btn-primary btn-sm" onclick="location.href='@Url.Action("Create", "Scale")'">
+            <i class="glyphicon glyphicon-plus"></i> 添加
+        </button>
+
+        <button id="btn_Delete" name="btn_Delete" type="submit" class="btn btn-danger btn-sm">
+            <i class="glyphicon glyphicon-remove"></i> 删除
+        </button>
+
+        <button id="btn_DownLoad" name="btn_DownLoad" type="button" class="btn btn-success btn-sm">
+            <i class="glyphicon glyphicon-download-alt"></i> 下载
+        </button>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" id="checkedAll" name="checkedAll" />全选
+                        </th>
+                        <th>
+                            操作
+                        </th>
+                        <th data-priority="1">
+                            店号
+                        </th>
+                        <th data-priority="2">
+                            部门
+                        </th>
+                        <th data-priority="3">
+                            称号
+                        </th>
+                        <th data-priority="4">
+                            称名
+                        </th>
+                        <th>
+                            Ip地址
+                        </th>
+                        <th data-priority="5">
+                            连接状态
+                        </th>
+                        <th data-priority="6">
+                            启用
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                {
+                        <tr>
+                            <td style="white-space:nowrap">
+                                <input type="checkbox" id="checkedId" name="checkedId" value="@item.Id" />
+                            </td>
+                            <td style="white-space:nowrap">
+                                @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("删除", "Delete", new { id = item.Id })
+                            </td>
+
+                            <td style="white-space:nowrap">
+                                @Html.DisplayFor(modelItem => item.Shop_id)
+                            </td>
+
+                            <td style="white-space:nowrap">
+                                @Html.DisplayFor(modelItem => item.Branch_id)
+                            </td>
+                            <td style="white-space:nowrap">
+                                @Html.DisplayFor(modelItem => item.Pos_No)
+                            </td>
+
+                            <td style="white-space:nowrap">
+                                @Html.DisplayFor(modelItem => item.ScaleName)
+                            </td>
+
+                            <td style="white-space:nowrap">
+                                @Html.DisplayFor(modelItem => item.IpAddress)
+                            </td>
+
+                            <td style="white-space:nowrap">
+                                @Html.DisplayFor(modelItem => item.ConnectedState)
+                            </td>
+
+                            <td style="white-space:nowrap">
+                                @Html.DisplayFor(modelItem => item.Enable)
+                            </td>
+
+                        </tr>
+
+                    }
+                </tbody>
+
+            </table>
+        </div>
+}
+
+<script type="text/JavaScript">
+    //表头CheckBox操作全选或取消全选
+    $("#checkedAll").click(function () {
+        var ischecked = this.checked;
+        $("input:checkbox[name='checkedId']").each(function () {
+            this.checked = ischecked;
+        });
+    });
+    $("#btn_Delete").click(function () {
+        //确定至少选择一项
+        if ($("[type='checkbox']:checked").length == 0) {
+            alert("请选择一项删除！");
+        }
+            //批量删除
+        else if (confirm("您确定要删除吗？")) {
+            $("[type='checkbox']:checked").each(function () {
+                var id = $(this).attr("value");
+                var tr = $(this).parent().parent();
+                if (id != null) {
+                    $.post(
+                          "/Scale/Delete",
+                          { "Id": id })
+                    tr.remove();
+                }
+            });
+        }
+        window.location.href = '/Scale';
+        window.location.reload();
+    });
+</script>

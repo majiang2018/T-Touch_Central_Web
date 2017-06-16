@@ -1,0 +1,281 @@
+﻿@model DATA.model.Product
+@{
+    ViewBag.Title = "删除";
+}
+
+<h2>删除</h2>
+
+<h3>您确定要删除吗?</h3>
+<div>
+    <h4>产品</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        
+        <dt>
+            @Html.DisplayName("商品编号")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.product_num)
+        </dd>
+        <dt>
+            @Html.DisplayName("商品名称")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.product_name)
+        </dd>
+        <dt>
+            @Html.DisplayName("价格")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.barcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("销售价格")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.price_lowest)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayName("预扣重")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tare)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("商品条码")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.barcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("简写")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.abbr)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("价格单位")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.priceUnit)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("税率")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tax_num)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("图片")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.image)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("音频")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.audio)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("产地")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.area)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("个")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pcs_flag)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("标签格式")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.labelFormat)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("禁用")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.disabled)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("条码格式")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.barcode_format)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("追溯")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.trace)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("电子标签")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.etag_id)
+        </dd>
+
+        <dt>
+           @Html.DisplayName("货架号")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mark_num)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("温度范围")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.temp_text)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("保存期限")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.score_ratio)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("推荐")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.recommend)
+        </dd>
+
+        <dt>
+           @Html.DisplayName("成分")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.period)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("营养值")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nutritional)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("生产日")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.produced)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("备注1")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remark1)
+        </dd>
+        <dt>
+            @Html.DisplayName("备注2")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remark2)
+        </dd>
+        <dt>
+            @Html.DisplayName("备注3")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remark3)
+        </dd>
+        <dt>
+            @Html.DisplayName("备注4")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remark4)
+        </dd>
+        <dt>
+            @Html.DisplayName("备注5")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remark5)
+        </dd>
+        <dt>
+            @Html.DisplayName("备注6")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remark6)
+        </dd>
+        <dt>
+            @Html.DisplayName("备注7")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remark7)
+        </dd>
+        <dt>
+            @Html.DisplayName("备注8")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remark8)
+        </dd>
+         
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="删除" class="btn btn-default" /> |
+            @Html.ActionLink("返回", "Index")
+        </div>
+    }
+</div>

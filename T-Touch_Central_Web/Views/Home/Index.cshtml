@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "主页";
+}
+<br />
+
+<div class="row ">
+    <div class="col-xs-6 col-sm-4 col-md-3 text-center ">
+        <a href="@Url.Action("Index", "Scale")">
+            <img src="~/Image/Scale.png"  alt="设备管理" width="110" height="65" />
+        </a>
+        <p>
+            @Html.ActionLink("设备管理", "Index","Scale")
+        </p>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 text-center ">
+        <img src="~/Image/ChangePrice.png" alt="批量改价" width="110" height="65" />
+        <p>批量改价</p>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 text-center">
+        <img src="~/Image/Label.png" alt="标签设计" width="110" height="65" />
+        <p>标签设计</p>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 text-center">
+        <img src="~/Image/Ui.png" alt="操作界面" width="110" height="65" />
+        <p>操作界面</p>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 text-center">
+         <a href="@Url.Action("Index", "Product")">
+            <img src="~/Image/Product.png"  alt="产品信息" width="110" height="65" />
+        </a>
+        <p>
+            @Html.ActionLink("产品信息", "Index", "Product")
+        </p>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 text-center">
+        <img src="~/Image/Promotion.png" alt="促销管理" width="110" height="65" />
+        <p>促销管理</p>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 text-center">
+        <img src="~/Image/Billboards.png" alt="价格看板" width="110" height="65" />
+        <p>价格看板</p>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 text-center">
+        <img src="~/Image/Download.png" alt="数据下发" width="110" height="65" />
+        <p>数据下发</p>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 text-center">
+        <img src="~/Image/Setting.png" alt="基本参数设置" width="110" height="65" />
+        <p>基本参数设置</p>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 text-center">
+        <img src="~/Image/PriceTag.png" alt="电子价签" width="110" height="65" />
+        <p>电子价签</p>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 text-center">
+        <img src="~/Image/Image.png" alt="发送文件" width="110" height="65" />
+        <p>发送文件</p>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 text-center">
+        <img src="~/Image/Transfer.png" alt="备份还原" width="110" height="65" />
+        <p>备份还原</p>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 text-center">
+        <a href="@Url.Action("Index", "Category")">
+            <img src="~/Image/Category.png"  alt="分类信息" width="110" height="65" />
+        </a>
+        <p>
+            @Html.ActionLink("分类信息", "Index", "Category")
+        </p>
+    </div>
+</div>
+<br />
