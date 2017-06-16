@@ -38,7 +38,6 @@ namespace T_Touch_Central_Web.Models
         [Compare("NewPassword", ErrorMessage = "新密码和确认密码不匹配。")]
         public string ConfirmPassword { get; set; }
     }
-
     public class ChangePasswordViewModel
     {
         [Required]
@@ -57,7 +56,6 @@ namespace T_Touch_Central_Web.Models
         [Compare("NewPassword", ErrorMessage = "新密码和确认密码不匹配。")]
         public string ConfirmPassword { get; set; }
     }
-
     public class AddPhoneNumberViewModel
     {
         [Required]
@@ -77,7 +75,6 @@ namespace T_Touch_Central_Web.Models
         [Display(Name = "电话号码")]
         public string PhoneNumber { get; set; }
     }
-
     public class ConfigureTwoFactorViewModel
     {
         public string SelectedProvider { get; set; }
