@@ -19,7 +19,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
-         <div class="form-group">
+        <div class="form-group">
             @Html.Label("店号", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
                 @Html.EditorFor(model => model.Shop_id, new { htmlAttributes = new { @class = "form-control" } })
@@ -100,9 +100,9 @@
                 @Html.ValidationMessage("amount", "", new { @class = "text-danger" })
             </div>
         </div>
-        
+
     </div>
-   <br />
+    <br />
 
     <div class="form-group">
         <div>
@@ -115,18 +115,43 @@
     @Html.ActionLink("返回", "Index")
 </div>
 <script>
-  $( function() {
-    $( "#slider" ).slider({
-      value:255,
-      min: 0,
-      max: 255,
-      step: 1,
-      slide: function( event, ui ) {
-        $( "#amount" ).val( ui.value );
-      }
+    $( function() {
+        $("#slider").slider({
+            slide: colorRefresh,
+            change: colorRefresh,
+            value:1,
+            min: 0,
+            max: 1,
+            step: 0.01,
+            slide: function( event, ui ) {
+                $( "#amount" ).val( ui.value );
+            }
+        });
+        $("#amount").val($("#slider").slider("value"));
     });
-    $( "#amount" ).val($( "#slider" ).slider( "value" ) );
-  } );
+   
+    function colorRefresh() {
+        var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+        var sColor = document.getElementById("Color").value.toLowerCase();
+        if (sColor && reg.test(sColor)) {
+            if (sColor.length === 4) {
+                var sColorNew = "#";
+                for (var i = 1; i < 4; i += 1) {
+                    sColorNew += sColor.slice(i, i + 1).concat(sColor.slice(i, i + 1));
+                }
+                sColor = sColorNew;
+            }
+            //处理六位的颜色值  
+            var sColorChange = [];
+            for (var i = 1; i < 7; i += 2) {
+                sColorChange.push(parseInt("0x" + sColor.slice(i, i + 2)));
+            }
+            $("#Color").css("background-color:rgba(" + sColorChange.join(",") + "," + $("#slider").slider("value") + ")");
+           
+        } else {
+            alert(sColor);
+        }
+    }
 </script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

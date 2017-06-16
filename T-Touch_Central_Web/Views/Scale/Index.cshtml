@@ -16,94 +16,94 @@
         <i class="glyphicon glyphicon-plus"></i> 添加
     </button>
 
-        <button id="btn_Delete" name="btn_Delete" type="submit" class="btn btn-danger btn-sm">
-            <i class="glyphicon glyphicon-remove"></i> 删除
-        </button>
+    <button id="btn_Delete" name="btn_Delete" type="submit" class="btn btn-danger btn-sm">
+        <i class="glyphicon glyphicon-remove"></i> 删除
+    </button>
 
-        <button id="btn_DownLoad" name="btn_DownLoad" type="button" class="btn btn-success btn-sm">
-            <i class="glyphicon glyphicon-download-alt"></i> 下载
-        </button>
+    <button id="btn_DownLoad" name="btn_DownLoad" type="button" class="btn btn-success btn-sm">
+        <i class="glyphicon glyphicon-download-alt"></i> 下载
+    </button>
 
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>
-                            <input type="checkbox" id="checkedAll" name="checkedAll" />全选
-                        </th>
-                        <th>
-                            操作
-                        </th>
-                        <th data-priority="1">
-                            店号
-                        </th>
-                        <th data-priority="2">
-                            部门
-                        </th>
-                        <th data-priority="3">
-                            称号
-                        </th>
-                        <th data-priority="4">
-                            称名
-                        </th>
-                        <th>
-                            Ip地址
-                        </th>
-                        <th data-priority="5">
-                            连接状态
-                        </th>
-                        <th data-priority="6">
-                            启用
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
+    <div class="table-responsive" id="comments">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" id="checkedAll" name="checkedAll" />全选
+                    </th>
+                    <th>
+                        操作
+                    </th>
+                    <th data-priority="1">
+                        店号
+                    </th>
+                    <th data-priority="2">
+                        部门
+                    </th>
+                    <th data-priority="3">
+                        称号
+                    </th>
+                    <th data-priority="4">
+                        称名
+                    </th>
+                    <th>
+                        Ip地址
+                    </th>
+                    <th data-priority="5">
+                        连接状态
+                    </th>
+                    <th data-priority="6">
+                        启用
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
 
-                    @foreach (var item in Model)
+                @foreach (var item in Model)
                 {
-                        <tr>
-                            <td style="white-space:nowrap">
-                                <input type="checkbox" id="checkedId" name="checkedId" value="@item.Id" />
-                            </td>
-                            <td style="white-space:nowrap">
-                                @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
-                                @Html.ActionLink("删除", "Delete", new { id = item.Id })
-                            </td>
+                    <tr id="Row-@item.Id">
+                        <td style="white-space:nowrap">
+                            <input type="checkbox" id="checkedId" name="checkedId" value="@item.Id" />
+                        </td>
+                        <td style="white-space:nowrap">
+                            @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("删除", "Delete", new { id = item.Id })
+                        </td>
 
-                            <td style="white-space:nowrap">
-                                @Html.DisplayFor(modelItem => item.Shop_id)
-                            </td>
+                        <td style="white-space:nowrap">
+                            @Html.DisplayFor(modelItem => item.Shop_id)
+                        </td>
 
-                            <td style="white-space:nowrap">
-                                @Html.DisplayFor(modelItem => item.Branch_id)
-                            </td>
-                            <td style="white-space:nowrap">
-                                @Html.DisplayFor(modelItem => item.Pos_No)
-                            </td>
+                        <td style="white-space:nowrap">
+                            @Html.DisplayFor(modelItem => item.Branch_id)
+                        </td>
+                        <td style="white-space:nowrap">
+                            @Html.DisplayFor(modelItem => item.Pos_No)
+                        </td>
 
-                            <td style="white-space:nowrap">
-                                @Html.DisplayFor(modelItem => item.ScaleName)
-                            </td>
+                        <td style="white-space:nowrap">
+                            @Html.DisplayFor(modelItem => item.ScaleName)
+                        </td>
 
-                            <td style="white-space:nowrap">
-                                @Html.DisplayFor(modelItem => item.IpAddress)
-                            </td>
+                        <td style="white-space:nowrap">
+                            @Html.DisplayFor(modelItem => item.IpAddress)
+                        </td>
 
-                            <td style="white-space:nowrap">
-                                @Html.DisplayFor(modelItem => item.ConnectedState)
-                            </td>
+                        <td style="white-space:nowrap">
+                            @Html.DisplayFor(modelItem => item.ConnectedState)
+                        </td>
 
-                            <td style="white-space:nowrap">
-                                @Html.DisplayFor(modelItem => item.Enable)
-                            </td>
+                        <td style="white-space:nowrap">
+                            @Html.DisplayFor(modelItem => item.Enable)
+                        </td>
 
-                        </tr>
+                    </tr>
 
-                    }
-                </tbody>
+                }
+            </tbody>
 
-            </table>
-        </div>
+        </table>
+    </div>
 }
 
 <script type="text/JavaScript">
@@ -119,24 +119,25 @@
         if ($("[type='checkbox']:checked").length == 0) {
             alert("请选择一项删除！");
         }
-            //批量删除
-        else if (confirm("您确定要删除吗？")) {
+         //批量删除
+        else if (confirm("您确定要删除选择的记录吗？")) {
             $("[type='checkbox']:checked").each(function () {
                 var id = $(this).attr("value");
-                var tr = $(this).parent().parent();
+             
                 if (id != null) {
-                    $.ajax({
-                        type:"POST",
-                        url:"/Scale/Delete/"+id,
-                        complete:  function()
+                    $.post("/Scale/Delete/",
                         {
-                            window.location.reload();  
-                        }
-                    });
-                    
+                            Id: id
+                        },
+                    function (data) {
+                        //隐藏掉已经删除的那一行
+                        $('#Row-' + id).fadeOut('slow');
+                    },
+                    "html"
+                    );
                 }
             });
+            $.get("/Scale/Index");
         }
     });
-    
 </script>
