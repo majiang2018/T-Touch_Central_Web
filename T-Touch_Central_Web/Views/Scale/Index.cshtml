@@ -125,14 +125,18 @@
                 var id = $(this).attr("value");
                 var tr = $(this).parent().parent();
                 if (id != null) {
-                    $.post(
-                          "/Scale/Delete",
-                          { "Id": id })
-                    tr.remove();
+                    $.ajax({
+                        type:"POST",
+                        url:"/Scale/Delete/"+id,
+                        complete:  function()
+                        {
+                            window.location.reload();  
+                        }
+                    });
+                    
                 }
             });
         }
-        window.location.href = '/Scale';
-        window.location.reload();
     });
+    
 </script>
