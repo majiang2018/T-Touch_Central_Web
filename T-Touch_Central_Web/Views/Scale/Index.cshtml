@@ -114,6 +114,7 @@
             this.checked = ischecked;
         });
     });
+
     $("#btn_Delete").click(function () {
         //确定至少选择一项
         if ($("[type='checkbox']:checked").length == 0) {
@@ -123,7 +124,6 @@
         else if (confirm("您确定要删除选择的记录吗？")) {
             $("[type='checkbox']:checked").each(function () {
                 var id = $(this).attr("value");
-             
                 if (id != null) {
                     $.post("/Scale/Delete/",
                         {
@@ -138,6 +138,12 @@
                 }
             });
             $.get("/Scale/Index");
+        }
+    });
+    $("#btn_DownLoad").click(function () {
+        //确定至少选择一项
+        if ($("[type='checkbox']:checked").length == 0) {
+            alert("请选择一项下载！");
         }
     });
 </script>
