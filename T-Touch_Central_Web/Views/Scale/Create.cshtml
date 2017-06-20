@@ -3,14 +3,12 @@
     ViewBag.Title = "新建";
 }
 <h2>新建</h2>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
     var Enable = new List<SelectListItem>()
     {
-        new SelectListItem() { Text = "True", Value = "True" },
+        new SelectListItem() { Text = "True", Value = "True",Selected=true },
         new SelectListItem() { Text = "False", Value = "False" },
     };
 
@@ -69,7 +67,6 @@
         <div class="form-group">
             @Html.Label("屏幕保护", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-
                 @Html.EditorFor(model => model.Images, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Images, "", new { @class = "text-danger" })
             </div>
@@ -78,7 +75,6 @@
         <div class="form-group">
             @Html.Label("主背景图片", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-
                 @Html.EditorFor(model => model.Images1, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Images1, "", new { @class = "text-danger" })
             </div>
@@ -87,44 +83,36 @@
         <div class="form-group">
             @Html.Label("主屏背景颜色", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                <input  id="Color" type="color" value="#FFFFFF" class="form-control">
+                @Html.EditorFor(model=>model.Color, new { htmlAttributes = new { type = "color",value = "#FFFFFF",@class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.Label("颜色透明度", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("颜色透明度", htmlAttributes: new { id = "value", @class = "control-label col-md-2" })
             <div class="col-md-4">
-                <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold; ">
-                <div id="slider" style="width:280px;"></div>
-                @Html.ValidationMessage("amount", "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { type = "range", min = "0", max = "255", value = "255", step = "1", onchange = "change()", @class = "form-control" } })
+                @Html.ValidationMessage("Remark", "", new { @class = "text-danger" })
             </div>
         </div>
-       
     </div>
-   <br />
+    <br />
     <div class="form-group">
         <div>
             <input type="submit" value="新建" class="btn btn-default" />
         </div>
     </div>
 }
-
 <div>
     @Html.ActionLink("返回", "Index")
 </div>
 <script>
-  $( function() {
-    $( "#slider" ).slider({
-      value:255,
-      min: 0,
-      max: 255,
-      step: 1,
-      slide: function( event, ui ) {
-        $( "#amount" ).val( ui.value );
-      }
+    $(function () {
+        document.getElementById("Remark").value = "255";
+        document.getElementById('value').innerHTML = "颜色透明度 (" + document.getElementById('Remark').value + ")";
     });
-    $( "#amount" ).val($( "#slider" ).slider( "value" ) );
-  } );
+    function change() {
+        document.getElementById('value').innerHTML = "颜色透明度 (" + document.getElementById('Remark').value+")";
+    }
 </script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
