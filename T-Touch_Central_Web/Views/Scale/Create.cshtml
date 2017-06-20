@@ -3,7 +3,7 @@
     ViewBag.Title = "新建";
 }
 <h2>新建</h2>
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Scale", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     var Enable = new List<SelectListItem>()
@@ -67,7 +67,7 @@
         <div class="form-group">
             @Html.Label("屏幕保护", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.EditorFor(model => model.Images, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Images, new { htmlAttributes = new { type = "file", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Images, "", new { @class = "text-danger" })
             </div>
         </div>

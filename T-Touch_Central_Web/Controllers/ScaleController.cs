@@ -1,6 +1,8 @@
 ﻿using DATA;
 using DATA.model;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace T_Touch_Central_Web.Controllers
@@ -31,18 +33,45 @@ namespace T_Touch_Central_Web.Controllers
         {
             return View();
         }
+        public byte[] ConvertToBytes(HttpPostedFileBase image)
+        {
+            byte[] imageBytes = null;
+            BinaryReader reader = new BinaryReader(image.InputStream);
+            imageBytes = reader.ReadBytes((int)image.ContentLength);
+            return imageBytes;
+        }
 
         // POST: Scale/Create
         [HttpPost]
-        public ActionResult Create(Scales Sql)
+        public ActionResult Create(Scales Sql, HttpPostedFileBase Images1)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     // TODO: Add insert logic here
-                    var db = new DB();
-                    db.Scales.InsertOnSubmit(Sql);
+
+                    // Read bytes from http input stream
+                    string images = "";
+                    if (Images1 != null && Images1.ContentLength > 0)
+                    {
+                        images= System.Text.Encoding.Default.GetString(ConvertToBytes(Images1));
+
+                    }
+                        var db = new DB();
+                    var Scale = new Scales
+                    {   Shop_id=Sql.Shop_id,
+                        Branch_id=Sql.Branch_id,
+                        Pos_No = Sql.Pos_No,
+                        ScaleName=Sql.ScaleName,
+                        IpAddress=Sql.IpAddress,
+                        Enable=Sql.Enable,
+                        Images = images,
+                        Color=Sql.Color,
+                        Remark=Sql.Remark
+                    };
+
+                    db.Scales.InsertOnSubmit(Scale);
                     db.SubmitChanges();
                     return RedirectToAction("Index");
                 }
