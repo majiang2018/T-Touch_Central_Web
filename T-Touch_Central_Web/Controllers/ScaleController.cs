@@ -21,7 +21,6 @@ namespace T_Touch_Central_Web.Controllers
 
             foreach (var item in ip)
             {
-
                 Ping pingSender = new Ping();
                 PingOptions options = new PingOptions();
                 string data = "";

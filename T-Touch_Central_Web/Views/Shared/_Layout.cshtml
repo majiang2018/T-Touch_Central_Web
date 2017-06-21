@@ -9,7 +9,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/modernizr")
- 
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -34,12 +34,14 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Tscale</p>
-        </footer>
+        @if (ViewBag.Title != "设备管理")
+        {
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Tscale</p>
+            </footer>}
     </div>
-   
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
