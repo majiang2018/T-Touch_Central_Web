@@ -1,9 +1,11 @@
 ﻿using DATA;
 using DATA.model;
 using System;
-using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
+
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -15,12 +17,34 @@ namespace T_Touch_Central_Web.Controllers
         public ActionResult Index(string ScaleNo)
         {
             var db = new DB();
-            var sql = from t in db.Scales select t; ;
+            var ip = from t in db.Scales select new { t.Id, t.IpAddress };
+
+            foreach (var item in ip)
+            {
+
+                Ping pingSender = new Ping();
+                PingOptions options = new PingOptions();
+                string data = "";
+                byte[] buffer = Encoding.ASCII.GetBytes(data);
+                int timeout = 120;
+                PingReply reply = pingSender.Send(item.IpAddress, timeout, buffer, options);
+                if (reply.Status == IPStatus.Success)
+                {
+                    db.ExecuteCommand("Update [dbo].[Scales] SET ConnectedState='True' Where Id = {0}", item.Id);
+
+                }
+                else
+                {
+                    db.ExecuteCommand("Update [dbo].[Scales] SET ConnectedState='False' Where Id = {0}", item.Id);
+                }
+
+            }
+
+            var sql = from t in db.Scales select t;
             if (!string.IsNullOrEmpty(ScaleNo))
             {
                 sql = sql.Where(s => s.Pos_No.Contains(ScaleNo));
             }
-
             return View(sql);
         }
 
@@ -44,7 +68,7 @@ namespace T_Touch_Central_Web.Controllers
             long data = file.InputStream.Read(bytes, 0, (int)stream.Length);
             stream.Close();
             return Convert.ToBase64String(bytes, 0, bytes.Length);
-        } 
+        }
 
         // POST: Scale/Create
         [HttpPost]
@@ -72,7 +96,7 @@ namespace T_Touch_Central_Web.Controllers
                         IpAddress = Sql.IpAddress,
                         Enable = Sql.Enable,
                         Images = images,
-                        Images1=images1,
+                        Images1 = images1,
                         Color = Sql.Color,
                         Remark = Sql.Remark
                     };
@@ -118,7 +142,7 @@ namespace T_Touch_Central_Web.Controllers
 
                 var db = new DB();
                 var Sql = db.Scales.SingleOrDefault(x => x.Id == id);
-                if (images!=string.Empty)
+                if (images != string.Empty)
                 {
                     Sql.Images = images;
                 }

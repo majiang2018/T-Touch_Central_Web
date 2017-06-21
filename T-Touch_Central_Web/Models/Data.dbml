@@ -114,7 +114,7 @@
       <Column Name="Pos_No" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="ScaleGroup" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="ScaleName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="IpAddress" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IpAddress" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="SendPort" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="ReceiverPort" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="ConnectedState" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />

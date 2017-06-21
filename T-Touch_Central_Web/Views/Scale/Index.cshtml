@@ -83,7 +83,7 @@
                             @Html.DisplayFor(modelItem => item.IpAddress)
                         </td>
 
-                        <td style="white-space:nowrap">
+                        <td style="white-space:nowrap"id="connectedState">
                             @Html.DisplayFor(modelItem => item.ConnectedState)
                         </td>
 
@@ -138,4 +138,12 @@
             alert("请选择一项下载！");
         }
     });
+
+    $(function(){
+        setInterval(Refresh,5);
+        function Refresh(){
+            $.get("/Scale/Index");
+            window.location.reload(true);
+        }
+    })
 </script>
