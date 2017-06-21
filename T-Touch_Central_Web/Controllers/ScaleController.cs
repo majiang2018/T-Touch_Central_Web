@@ -1,5 +1,7 @@
 ﻿using DATA;
 using DATA.model;
+using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -33,17 +35,20 @@ namespace T_Touch_Central_Web.Controllers
         {
             return View();
         }
-        public byte[] ConvertToBytes(HttpPostedFileBase image)
+
+        // ToBase64
+        public static string ToBase64(HttpPostedFileBase file)
         {
-            byte[] imageBytes = null;
-            BinaryReader reader = new BinaryReader(image.InputStream);
-            imageBytes = reader.ReadBytes((int)image.ContentLength);
-            return imageBytes;
-        }
+            Stream stream = file.InputStream;
+            byte[] bytes = new byte[stream.Length];
+            long data = file.InputStream.Read(bytes, 0, (int)stream.Length);
+            stream.Close();
+            return Convert.ToBase64String(bytes, 0, bytes.Length);
+        } 
 
         // POST: Scale/Create
         [HttpPost]
-        public ActionResult Create(Scales Sql, HttpPostedFileBase Images1)
+        public ActionResult Create(Scales Sql)
         {
             if (ModelState.IsValid)
             {
@@ -51,24 +56,25 @@ namespace T_Touch_Central_Web.Controllers
                 {
                     // TODO: Add insert logic here
 
-                    // Read bytes from http input stream
-                    string images = "";
-                    if (Images1 != null && Images1.ContentLength > 0)
-                    {
-                        images= System.Text.Encoding.Default.GetString(ConvertToBytes(Images1));
+                    string images = string.Empty;
+                    images = ToBase64(Request.Files["Images"]);
 
-                    }
-                        var db = new DB();
+                    string images1 = string.Empty;
+                    images1 = ToBase64(Request.Files["Images1"]);
+
+                    var db = new DB();
                     var Scale = new Scales
-                    {   Shop_id=Sql.Shop_id,
-                        Branch_id=Sql.Branch_id,
+                    {
+                        Shop_id = Sql.Shop_id,
+                        Branch_id = Sql.Branch_id,
                         Pos_No = Sql.Pos_No,
-                        ScaleName=Sql.ScaleName,
-                        IpAddress=Sql.IpAddress,
-                        Enable=Sql.Enable,
+                        ScaleName = Sql.ScaleName,
+                        IpAddress = Sql.IpAddress,
+                        Enable = Sql.Enable,
                         Images = images,
-                        Color=Sql.Color,
-                        Remark=Sql.Remark
+                        Images1=images1,
+                        Color = Sql.Color,
+                        Remark = Sql.Remark
                     };
 
                     db.Scales.InsertOnSubmit(Scale);
@@ -103,8 +109,24 @@ namespace T_Touch_Central_Web.Controllers
             {
                 // TODO: Add update logic here
 
+
+                string images = string.Empty;
+                images = ToBase64(Request.Files["Images"]);
+
+                string images1 = string.Empty;
+                images1 = ToBase64(Request.Files["Images1"]);
+
                 var db = new DB();
                 var Sql = db.Scales.SingleOrDefault(x => x.Id == id);
+                if (images!=string.Empty)
+                {
+                    Sql.Images = images;
+                }
+                if (images1 != string.Empty)
+                {
+                    Sql.Images1 = images1;
+                }
+
                 UpdateModel(Sql, collection.ToValueProvider());
                 db.SubmitChanges();
                 return RedirectToAction("Index");
@@ -115,7 +137,7 @@ namespace T_Touch_Central_Web.Controllers
                 return View();
             }
         }
- 
+
         // GET: Scale/Delete/5
         public ActionResult Delete(int id)
         {
@@ -131,13 +153,11 @@ namespace T_Touch_Central_Web.Controllers
             try
             {
                 // TODO: Add delete logic here
-
                 var db = new DB();
                 var Sql = db.Scales.SingleOrDefault(x => x.Id == id);
                 db.Scales.DeleteOnSubmit(Sql);
                 db.SubmitChanges();
                 return RedirectToAction("Index");
-
             }
             catch
             {

@@ -67,6 +67,7 @@
         <div class="form-group">
             @Html.Label("屏幕保护", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
+                <img id="images" width="90" height="70"alt="屏幕保护" style="border:1px solid #7DA2CE"/>
                 @Html.EditorFor(model => model.Images, new { htmlAttributes = new { type = "file", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Images, "", new { @class = "text-danger" })
             </div>
@@ -75,7 +76,8 @@
         <div class="form-group">
             @Html.Label("主背景图片", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.EditorFor(model => model.Images1, new { htmlAttributes = new { @class = "form-control" } })
+                <img id="images1" width="90" height="70" alt="主背景图片" style="border:1px solid #7DA2CE"/>
+                @Html.EditorFor(model => model.Images1, new { htmlAttributes = new { type = "file", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Images1, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -83,7 +85,7 @@
         <div class="form-group">
             @Html.Label("主屏背景颜色", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.EditorFor(model=>model.Color, new { htmlAttributes = new { type = "color",value = "#FFFFFF",@class = "form-control" } })
+                @Html.EditorFor(model => model.Color, new { htmlAttributes = new { type = "color", value = "#FFFFFF", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -110,9 +112,26 @@
         document.getElementById("Remark").value = "255";
         document.getElementById('value').innerHTML = "颜色透明度 (" + document.getElementById('Remark').value + ")";
     });
+
     function change() {
-        document.getElementById('value').innerHTML = "颜色透明度 (" + document.getElementById('Remark').value+")";
+        document.getElementById('value').innerHTML = "颜色透明度 (" + document.getElementById('Remark').value + ")";
     }
+
+    document.getElementById("Images").onchange = function () {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById("images").src = e.target.result;
+        };
+        reader.readAsDataURL(this.files[0]);
+    };
+
+    document.getElementById("Images1").onchange = function () {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById("images1").src = e.target.result;
+        };
+        reader.readAsDataURL(this.files[0]);
+    };
 </script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

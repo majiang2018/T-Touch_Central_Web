@@ -4,7 +4,7 @@
 }
 <h2>编辑</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Scale", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     var Enable = new List<SelectListItem>()
@@ -61,7 +61,7 @@
         <div class="form-group">
             @Html.Label("启用", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.DropDownListFor(model=>model.Enable,Enable,"--请选择--", new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.Enable, Enable, "--请选择--", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Enable, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -69,7 +69,11 @@
         <div class="form-group">
             @Html.Label("屏幕保护", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.EditorFor(model => model.Images, new { htmlAttributes = new { @class = "form-control" } })
+                @{
+                    var image = string.Format("data:image/jpeg;base64,{0}", Model.Images);
+                }
+                <img id="images" width="90" height="70" src="@image" alt="屏幕保护"style="border:1px solid #7DA2CE"/>
+                @Html.EditorFor(model => model.Images, new { htmlAttributes = new { type = "file", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Images, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -77,7 +81,11 @@
         <div class="form-group">
             @Html.Label("主背景图片", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.EditorFor(model => model.Images1, new { htmlAttributes = new { @class = "form-control" } })
+                @{
+                    var image1 = string.Format("data:image/jpeg;base64,{0}", Model.Images1);
+                }
+                <img id="images1" width="90" height="70" src="@image1"  alt="主背景图片"style="border:1px solid #7DA2CE"/>
+                @Html.EditorFor(model => model.Images1, new { htmlAttributes = new { type = "file", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Images1, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -85,7 +93,7 @@
         <div class="form-group">
             @Html.Label("主屏背景颜色", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.TextBoxFor(model => model.Color, new { type = "Color",value= "#FFFFFF", @class= "form-control" })
+                @Html.TextBoxFor(model => model.Color, new { type = "Color", value = "#FFFFFF", @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -105,8 +113,7 @@
             <input type="submit" value="保存" class="btn btn-default" />
         </div>
     </div>
-}
-
+                    }
 <div>
     @Html.ActionLink("返回", "Index")
 </div>
@@ -115,8 +122,23 @@
         document.getElementById('value').innerHTML = "颜色透明度 (" + document.getElementById('Remark').value + ")";
     });
     function change() {
-        document.getElementById('value').innerHTML = "颜色透明度 (" + document.getElementById('Remark').value+")";
+        document.getElementById('value').innerHTML = "颜色透明度 (" + document.getElementById('Remark').value + ")";
     }
+    document.getElementById("Images").onchange = function () {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById("images").src = e.target.result;
+        };
+        reader.readAsDataURL(this.files[0]);
+    };
+
+    document.getElementById("Images1").onchange = function () {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById("images1").src = e.target.result;
+        };
+        reader.readAsDataURL(this.files[0]);
+    };
 </script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
