@@ -67,7 +67,9 @@
         <div class="form-group">
             @Html.Label("屏幕保护", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                <img id="images" width="90" height="70"alt="屏幕保护" style="border:1px solid #7DA2CE"/>
+                <div style="width:280px;height:70px;border:1px solid #CCCCCC">
+                <img id="images" width="280" height="70" alt="屏幕保护"style="border:0px"  />
+                </div> 
                 @Html.EditorFor(model => model.Images, new { htmlAttributes = new { type = "file", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Images, "", new { @class = "text-danger" })
             </div>
@@ -76,7 +78,9 @@
         <div class="form-group">
             @Html.Label("主背景图片", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                <img id="images1" width="90" height="70" alt="主背景图片" style="border:1px solid #7DA2CE"/>
+                <div style="width:280px;height:70px;border:1px solid #CCCCCC">
+                <img id="images1" width="280" height="70" alt="主背景图片" style="border:0px" />
+                </div>
                 @Html.EditorFor(model => model.Images1, new { htmlAttributes = new { type = "file", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Images1, "", new { @class = "text-danger" })
             </div>
@@ -120,6 +124,8 @@
     document.getElementById("Images").onchange = function () {
         var reader = new FileReader();
         reader.onload = function (e) {
+            document.getElementById("images").width = 90;
+            document.getElementById("images").height = 70;
             document.getElementById("images").src = e.target.result;
         };
         reader.readAsDataURL(this.files[0]);
@@ -128,6 +134,8 @@
     document.getElementById("Images1").onchange = function () {
         var reader = new FileReader();
         reader.onload = function (e) {
+            document.getElementById("images1").width = 90;
+            document.getElementById("images1").height = 70;
             document.getElementById("images1").src = e.target.result;
         };
         reader.readAsDataURL(this.files[0]);
