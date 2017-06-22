@@ -55,6 +55,16 @@ namespace T_Touch_Central_Web.Controllers
         // GET: Scale/Create
         public ActionResult Create()
         {
+            var db = new DB();
+            var maxposno = (from t in db.Scales select t.Pos_No).Max();
+            if (maxposno != null)
+            {
+                ViewBag.Message = int.Parse(maxposno) + 1;
+            }
+            else
+            {
+                ViewBag.Message = 1;
+            }
             return View();
         }
 
@@ -185,6 +195,56 @@ namespace T_Touch_Central_Web.Controllers
             {
                 return View();
             }
+        }
+
+        [HttpPost]
+        public string DownLoad(string function, string ip, string id)
+        {
+            var result = string.Empty;
+
+            try
+            {
+                //发送请求
+
+                string[] textArray1 = new string[] { "http://", ip, ":", "1235", "/info" };
+                string uri = string.Concat(textArray1);
+                var db = new DB();
+                switch (function)
+                {
+                    case "info":
+                        var Sql = db.Scales.SingleOrDefault(x => x.Id == int.Parse(id));
+                        if (Sql.Shop_id == null)
+                        {
+
+                            result = "店号为空！";
+                            return result;
+                        }
+                        if (Sql.Branch_id == null)
+                        {
+                            result = "部门为空！";
+                            return result;
+                        }
+                        if (Sql.Pos_No == null)
+                        {
+                            result = "称号为空！";
+                            return result;
+                        }
+                        //方法1
+                        result = json.JsonTree(HttpHelper.HttpPost(uri,
+                          "{\"shop_id\":" + Sql.Shop_id+
+                          ", \"department_id\":" + Sql.Branch_id +
+                          ", \"scale_id\":" + Sql.Pos_No +
+                          "}")) +
+                          Environment.NewLine + Environment.NewLine;
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                result = ex.Message;
+            }
+
+            return result;
         }
     }
 }

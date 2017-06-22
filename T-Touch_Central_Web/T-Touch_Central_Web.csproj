@@ -187,6 +187,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HttpHelper.cs" />
+    <Compile Include="Json.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Data.designer.cs">
       <AutoGen>True</AutoGen>
