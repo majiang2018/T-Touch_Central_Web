@@ -158,7 +158,7 @@
             else if (true) {
                 $("[type='checkbox']:checked").each(function () {
                     var id = $(this).attr("value");
-                    var ip = $("input[type='checkbox'][name='checkedId']:checked").closest('tr').find('td:eq(6)').map(function () { return this.innerHTML }).get().join();
+                    var ip = $(this).closest('tr').find('td:eq(6)').map(function () { return this.innerHTML }).get().join();
                     if (id != null) {
                         $.post("/Scale/DownLoad/",
                             {

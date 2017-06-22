@@ -215,18 +215,17 @@ namespace T_Touch_Central_Web.Controllers
                         var Sql = db.Scales.SingleOrDefault(x => x.Id == int.Parse(id));
                         if (Sql.Shop_id == null)
                         {
-
-                            result = "店号为空！";
+                            result = ip + ":" + "店号为空！";
                             return result;
                         }
                         if (Sql.Branch_id == null)
                         {
-                            result = "部门为空！";
+                            result = ip + ":" + "部门为空！";
                             return result;
                         }
                         if (Sql.Pos_No == null)
                         {
-                            result = "称号为空！";
+                            result = ip + ":" + "称号为空！";
                             return result;
                         }
                         //方法1
@@ -241,9 +240,12 @@ namespace T_Touch_Central_Web.Controllers
             }
             catch (Exception ex)
             {
-                result = ex.Message;
+                result = ip + ":"+ex.Message;
             }
-
+            if (result.Contains("OK"))
+            {
+                result= ip+":下载成功！";
+            }
             return result;
         }
     }
