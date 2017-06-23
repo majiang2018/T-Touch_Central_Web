@@ -20,9 +20,8 @@
         <button id="btn_DownLoad" name="btn_DownLoad" type="button" class="btn btn-success btn-sm">
             <i class="glyphicon glyphicon-download-alt"></i> 下载
         </button>
-
         <div class="table-responsive">
-            <table class="table table-striped" id="table1">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>
@@ -32,22 +31,22 @@
                             操作
                         </th>
                         <th data-priority="1">
-                            店号
-                        </th>
-                        <th data-priority="2">
-                            部门
-                        </th>
-                        <th data-priority="3">
                             称号
-                        </th>
-                        <th data-priority="4">
-                            称名
                         </th>
                         <th>
                             Ip地址
                         </th>
-                        <th data-priority="5">
+                        <th data-priority="2">
                             连接状态
+                        </th>
+                        <th data-priority="3">
+                            店号
+                        </th>
+                        <th data-priority="4">
+                            部门
+                        </th>
+                        <th data-priority="5">
+                            称名
                         </th>
                         <th data-priority="6">
                             启用
@@ -65,27 +64,13 @@
                                 @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
                                 @Html.ActionLink("删除", "Delete", new { id = item.Id })
                             </td>
-
-                            <td style="white-space:nowrap">
-                                @Html.DisplayFor(modelItem => item.Shop_id)
-                            </td>
-
-                            <td style="white-space:nowrap">
-                                @Html.DisplayFor(modelItem => item.Branch_id)
-                            </td>
                             <td style="white-space:nowrap">
                                 @Html.DisplayFor(modelItem => item.Pos_No)
                             </td>
-
-                            <td style="white-space:nowrap" id="Ip-@item.Id">
-                                @Html.DisplayFor(modelItem => item.ScaleName)
-                            </td>
-
                             <td style="white-space:nowrap">
                                 @Html.DisplayFor(modelItem => item.IpAddress)
                             </td>
                             <td style="white-space:nowrap">
-
                                 @{
                                     bool p = item.ConnectedState == "True" || item.ConnectedState == "1";
                                 }
@@ -99,6 +84,20 @@
                                     <font size="2" color="red">断线</font>
                                 }
                             </td>
+                            <td style="white-space:nowrap">
+                                @Html.DisplayFor(modelItem => item.Shop_id)
+                            </td>
+
+                            <td style="white-space:nowrap">
+                                @Html.DisplayFor(modelItem => item.Branch_id)
+                            </td>
+
+
+                            <td style="white-space:nowrap">
+                                @Html.DisplayFor(modelItem => item.ScaleName)
+                            </td>
+
+
                             <td style="white-space:nowrap">
                                 @Html.DisplayFor(modelItem => item.Enable)
                             </td>
@@ -133,20 +132,24 @@
             else if (confirm("您确定要删除选择的记录吗？")) {
                 $("[type='checkbox']:checked").each(function () {
                     var id = $(this).attr("value");
-                       if (id != null) {
-                        $.post("/Scale/Delete/",
-                            {
-                                Id: id
+                    if (id != null) {
+                        $.ajax({
+                            url: "/Scale/Delete/" + id,
+                            async: false,
+                            type: "POST",
+                            contentType: "application/x-www-form-urlencoded",
+                            //成功之后调用的函数
+                            success: function () {
+
                             },
-                        function (data) {
-                            //隐藏掉已经删除的那一行
-                            $('#Row-' + id).fadeOut('slow');
-                        },
-                        "html"
-                        );
+                            //调用出错执行的函数
+                            error: function () {
+                                alert("删除失败！");
+                            }
+                        });
                     }
                 });
-                $.get("/Scale/Index");
+
             }
         });
         $("#btn_DownLoad").click(function () {
@@ -158,33 +161,33 @@
             else if (true) {
                 $("[type='checkbox']:checked").each(function () {
                     var id = $(this).attr("value");
-                    var ip = $(this).closest('tr').find('td:eq(6)').map(function () { return this.innerHTML }).get().join();
                     if (id != null) {
-                        $.post("/Scale/DownLoad/",
-                            {
-                                Function: "info",
-                                Ip:ip.trim(),
-                                Id: id
+                        $.ajax({
+                            url: "/Scale/DownLoad/"+id,
+                            async: false,
+                            type: "POST",
+                            contentType: "application/x-www-form-urlencoded",
+                            //成功之后调用的函数
+                            success: function (data) {
+                                alert(data);
                             },
-                        function (result) {
-                            alert(result);
-                        },
-                        "html"
-                        );
+                        });
                     }
                 });
-              
+
             }
         });
         setInterval(function () {
             $.ajax({
-                url: '@Url.Action("Index", "Scale")',
+                url:"/Scale/Index/",
+                async: false,
                 type: "POST",
+                //成功之后调用的函数
                 success: function (result) {
                     $("#content").html(result);
                 }
             });
 
-        }, 60000);
+        }, 30000);
     </script>
 </div>

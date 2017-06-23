@@ -2,274 +2,351 @@
 @{
     ViewBag.Title = "产品";
 }
-
 <h2>产品</h2>
-
-<p>
-    @Html.ActionLink("新建", "Create")
-</p>
-<div class="table-responsive">
-    <table class="table table-striped">
-        <tr>
-            <th style="white-space:nowrap">
-                @Html.DisplayName("操作")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("商品编号")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("商品名称")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("价格")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("销售价格")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("预扣重")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("商品条码")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("简写")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("价格单位")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("税率")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("图片")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("音频")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("产地")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("个")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("标签格式")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("禁用")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("条码格式")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("追溯")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("电子标签")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("货架号")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("温度范围")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("保存期限")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("推荐")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("成分")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("营养值")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("生产日")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("备注1")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("备注2")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("备注3")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("备注4")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("备注5")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("备注6")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("备注7")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("备注8")
-            </th>
-
-            <th style="white-space:nowrap">
-                @Html.DisplayName("部门")
-            </th>
-
-        </tr>
-
-        @foreach (var item in Model)
-        {
+@using (Html.BeginForm())
+{
+    <br />
+    @Html.TextBox("ProductNumber", "", new { style = "width:250px;", placeholder = "商品编号" })
+    <button id="btn_Search" name="btn_Search" type="submit" class="btn btn-default btn-sm">
+        <i class="glyphicon glyphicon-search"></i> 搜索
+    </button>
+    <button id="btn_Add" name="btn_Add" type="button" class="btn btn-primary btn-sm" onclick="location.href='@Url.Action("Create", "Product")'">
+        <i class="glyphicon glyphicon-plus"></i> 添加
+    </button>
+    <button id="btn_Delete" name="btn_Delete" type="submit" class="btn btn-danger btn-sm">
+        <i class="glyphicon glyphicon-remove"></i> 删除
+    </button>
+    <button id="btn_DownLoad" name="btn_DownLoad" type="button" class="btn btn-success btn-sm">
+        <i class="glyphicon glyphicon-download-alt"></i> 下载
+    </button>
+    <div class="table-responsive">
+        <table class="table table-striped">
             <tr>
-                <td style="white-space:nowrap">
-                    @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("删除", "Delete", new { id = item.Id })
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.product_num)
-                </td>
-                <td style="white-space:nowrap"> 
-                    @Html.DisplayFor(modelItem => item.product_name)
-                </td>
+                <th style="white-space:nowrap">
+                    <input type="checkbox" id="checkedAll" name="checkedAll" />全选
+                </th>
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("操作")
+                </th>
 
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.price)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.price_lowest)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.tare)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.barcode)
-                </td>
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("商品编号")
+                </th>
 
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.abbr)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.priceUnit)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.tax_num)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.image)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.audio)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.category)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.department)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.area)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.pcs_flag)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.labelFormat)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.disabled)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.barcode_format)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.trace)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.etag_id)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.mark_num)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.recommend)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.ingredient)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.nutritional)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.produced)
-                </td>
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("商品名称")
+                </th>
 
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.remark1)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.remark2)
-                </td>
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("价格")
+                </th>
 
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.remark3)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.remark4)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.remark5)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.remark6)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.remark7)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.remark8)
-                </td>
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("销售价格")
+                </th>
 
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.branch_id)
-                </td>
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("预扣重")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("商品条码")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("简写")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("价格单位")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("税率")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("图片")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("音频")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("产地")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("个")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("标签格式")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("禁用")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("条码格式")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("追溯")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("电子标签")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("货架号")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("温度范围")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("保存期限")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("推荐")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("成分")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("营养值")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("生产日")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("备注1")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("备注2")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("备注3")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("备注4")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("备注5")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("备注6")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("备注7")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("备注8")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("部门")
+                </th>
 
             </tr>
-        }
 
-    </table>
-</div>
+            @foreach (var item in Model)
+                {
+                <tr id="Row-@item.Id">
+                    <td style="white-space:nowrap">
+                        <input type="checkbox" id="checkedId" name="checkedId" value="@item.Id" />
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("删除", "Delete", new { id = item.Id })
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.product_num)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.product_name)
+                    </td>
+
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.price)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.price_lowest)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.tare)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.barcode)
+                    </td>
+
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.abbr)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.priceUnit)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.tax_num)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.image)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.audio)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.category)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.department)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.area)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.pcs_flag)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.labelFormat)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.disabled)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.barcode_format)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.trace)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.etag_id)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.mark_num)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.recommend)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.ingredient)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.nutritional)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.produced)
+                    </td>
+
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.remark1)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.remark2)
+                    </td>
+
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.remark3)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.remark4)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.remark5)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.remark6)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.remark7)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.remark8)
+                    </td>
+
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.branch_id)
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+    </div>
+}
+<script type="text/JavaScript">
+    //表头CheckBox操作全选或取消全选
+    $("#checkedAll").click(function () {
+        var ischecked = this.checked;
+        $("input:checkbox[name='checkedId']").each(function () {
+            this.checked = ischecked;
+        });
+    });
+
+    $("#btn_Delete").click(function () {
+        //确定至少选择一项
+        if ($("[type='checkbox']:checked").length == 0) {
+            alert("请选择一项删除！");
+        }
+            //批量删除
+        else if (confirm("您确定要删除选择的记录吗？")) {
+            $("[type='checkbox']:checked").each(function () {
+                var id = $(this).attr("value");
+                if (id != null) {
+                    $.ajax({
+                        url: "/Product/Delete/" + id,
+                        async: false,
+                        type: "POST",
+                        contentType: "application/x-www-form-urlencoded",
+                        //调用出错执行的函数
+                        error: function () {
+                            alert("删除失败！");
+                        }
+                    });
+
+                }
+            });
+        }
+    });
+    $("#btn_DownLoad").click(function () {
+        //确定至少选择一项
+        if ($("[type='checkbox']:checked").length == 0) {
+            alert("请选择一项下载！");
+        }
+            //下载到称
+        else if (true) {
+            $("[type='checkbox']:checked").each(function () {
+                var id = $(this).attr("value");
+                if (id != null) {
+                    $.ajax({
+                        url: "/Product/DownLoad/" + id,
+                        async: false,
+                        type: "POST",
+                        contentType: "application/x-www-form-urlencoded",
+                        //调用出错执行的函数
+                        error: function (data, status, e) {
+                            alert("下载失败！");
+                        }
+                    });
+                }
+            });
+        }
+    });
+</script>

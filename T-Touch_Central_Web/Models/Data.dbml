@@ -126,4 +126,10 @@
       <Column Name="Remark" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
+  <Function Name="dbo.UpdateState" Method="UpdateState">
+    <Parameter Name="id" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="isOnline" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Result" Parameter="result" Type="System.String" DbType="NVarChar(50)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

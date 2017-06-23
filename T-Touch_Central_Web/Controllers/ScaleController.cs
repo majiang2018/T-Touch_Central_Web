@@ -17,6 +17,7 @@ namespace T_Touch_Central_Web.Controllers
         {
             var db = new DB();
             var ip = from t in db.Scales select new { t.Id, t.IpAddress };
+            string result = string.Empty;
 
             foreach (var item in ip)
             {
@@ -28,14 +29,12 @@ namespace T_Touch_Central_Web.Controllers
                 PingReply reply = pingSender.Send(item.IpAddress, timeout, buffer, options);
                 if (reply.Status == IPStatus.Success)
                 {
-                    db.ExecuteCommand("Update [dbo].[Scales] SET ConnectedState='True' Where Id = {0}", item.Id);
-
+                    db.UpdateState(item.Id.ToString(), "True", ref result);
                 }
                 else
                 {
-                    db.ExecuteCommand("Update [dbo].[Scales] SET ConnectedState='False' Where Id = {0}", item.Id);
+                    db.UpdateState(item.Id.ToString(), "False", ref result);
                 }
-
             }
 
             var sql = from t in db.Scales select t;
@@ -198,53 +197,47 @@ namespace T_Touch_Central_Web.Controllers
         }
 
         [HttpPost]
-        public string DownLoad(string function, string ip, string id)
+        public string DownLoad(string id)
         {
             var result = string.Empty;
+            var db = new DB();
+            var Sql = db.Scales.SingleOrDefault(x => x.Id == int.Parse(id));
 
             try
             {
                 //发送请求
-
-                string[] textArray1 = new string[] { "http://", ip, ":", "1235", "/info" };
+                string[] textArray1 = new string[] { "http://", Sql.IpAddress, ":", "1235", "/info" };
                 string uri = string.Concat(textArray1);
-                var db = new DB();
-                switch (function)
+                if (Sql.Shop_id == null)
                 {
-                    case "info":
-                        var Sql = db.Scales.SingleOrDefault(x => x.Id == int.Parse(id));
-                        if (Sql.Shop_id == null)
-                        {
-                            result = ip + ":" + "店号为空！";
-                            return result;
-                        }
-                        if (Sql.Branch_id == null)
-                        {
-                            result = ip + ":" + "部门为空！";
-                            return result;
-                        }
-                        if (Sql.Pos_No == null)
-                        {
-                            result = ip + ":" + "称号为空！";
-                            return result;
-                        }
-                        //方法1
-                        result = json.JsonTree(HttpHelper.HttpPost(uri,
-                          "{\"shop_id\":" + Sql.Shop_id+
-                          ", \"department_id\":" + Sql.Branch_id +
-                          ", \"scale_id\":" + Sql.Pos_No +
-                          "}")) +
-                          Environment.NewLine + Environment.NewLine;
-                        break;
+                    result = Sql.IpAddress + ":" + "店号为空！";
+                    return result;
                 }
+                if (Sql.Branch_id == null)
+                {
+                    result = Sql.IpAddress + ":" + "部门为空！";
+                    return result;
+                }
+                if (Sql.Pos_No == null)
+                {
+                    result = Sql.IpAddress + ":" + "称号为空！";
+                    return result;
+                }
+                //方法1
+                result = json.JsonTree(HttpHelper.HttpPost(uri,
+                  "{\"shop_id\":" + Sql.Shop_id +
+                  ", \"department_id\":" + Sql.Branch_id +
+                  ", \"scale_id\":" + Sql.Pos_No +
+                  "}")) +
+                  Environment.NewLine + Environment.NewLine;
             }
             catch (Exception ex)
             {
-                result = ip + ":"+ex.Message;
+                result = Sql.IpAddress + ":" + ex.Message;
             }
             if (result.Contains("OK"))
             {
-                result= ip+":下载成功！";
+                result = Sql.IpAddress + ":下载成功！";
             }
             return result;
         }

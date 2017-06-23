@@ -8,10 +8,14 @@ namespace T_Touch_Central_Web.Controllers
     public class ProductController : Controller
     {
         // GET: Product
-        public ActionResult Index()
+        public ActionResult Index(string ProductNumber)
         {
             var db = new DB();
-            var sql = from t in db.Product orderby t.product_num select t ;
+            var sql = from t in db.Product select t ;
+            if (!string.IsNullOrEmpty(ProductNumber))
+            {
+                sql = sql.Where(s => s.product_num.Contains(ProductNumber));
+            }
             return View(sql);
         }
 
@@ -100,6 +104,7 @@ namespace T_Touch_Central_Web.Controllers
                 db.Product.DeleteOnSubmit(Sql);
                 db.SubmitChanges();
                 return RedirectToAction("Index");
+
             }
             catch
             {

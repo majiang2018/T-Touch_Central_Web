@@ -92,6 +92,14 @@ namespace DATA
 				return this.GetTable<DATA.model.Scales>();
 			}
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateState")]
+		public int UpdateState([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(50)")] string id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(50)")] string isOnline, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Result", DbType="NVarChar(50)")] ref string result)
+		{
+			IExecuteResult result1 = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, isOnline, result);
+			result = ((string)(result1.GetParameterValue(2)));
+			return ((int)(result1.ReturnValue));
+		}
 	}
 }
 namespace DATA.model
