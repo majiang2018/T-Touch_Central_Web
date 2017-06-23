@@ -135,7 +135,7 @@ namespace T_Touch_Central_Web.Controllers
         public string DownLoad(string Id,string Ip)
         {
             var result = string.Empty;
-
+            result = Id + ":" + Ip;
             return result;
         }
     }
