@@ -11,7 +11,7 @@ namespace T_Touch_Central_Web.Controllers
         public ActionResult Index(string ProductNumber)
         {
             var db = new DB();
-            var sql = from t in db.Product select t ;
+            var sql = from t in db.Product select t;
             if (!string.IsNullOrEmpty(ProductNumber))
             {
                 sql = sql.Where(s => s.product_num.Contains(ProductNumber));
@@ -94,15 +94,28 @@ namespace T_Touch_Central_Web.Controllers
 
         // POST: Product/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string Id, FormCollection collection)
         {
             try
             {
                 // TODO: Add delete logic here
                 var db = new DB();
-                var Sql = db.Product.SingleOrDefault(x => x.Id == id);
-                db.Product.DeleteOnSubmit(Sql);
-                db.SubmitChanges();
+
+                if (Id.Contains(","))
+                {
+                    foreach (var item in Id.Split(',').ToArray())
+                    {
+                        var Sql = db.Product.SingleOrDefault(x => x.Id == int.Parse(item));
+                        db.Product.DeleteOnSubmit(Sql);
+                        db.SubmitChanges();
+                    }
+                }
+                else
+                {
+                    var Sql = db.Product.SingleOrDefault(x => x.Id == int.Parse(Id));
+                    db.Product.DeleteOnSubmit(Sql);
+                    db.SubmitChanges();
+                }
                 return RedirectToAction("Index");
 
             }
@@ -110,6 +123,20 @@ namespace T_Touch_Central_Web.Controllers
             {
                 return View();
             }
+        }
+        public ActionResult Scale()
+        {
+            var db = new DB();
+            var sql = from t in db.Scales select t;
+            return PartialView(sql);
+        }
+
+        [HttpPost]
+        public string DownLoad(string Id,string Ip)
+        {
+            var result = string.Empty;
+
+            return result;
         }
     }
 }

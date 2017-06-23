@@ -8,10 +8,14 @@ namespace T_Touch_Central_Web.Controllers
     public class CategoryController : Controller
     {
         // GET: Category
-        public ActionResult Index()
+        public ActionResult Index(string CategoryName)
         {
             var db = new DB();
-            var sql = from t in db.Category orderby t.category_num select t;
+            var sql = from t in db.Category   select t;
+            if (!string.IsNullOrEmpty(CategoryName))
+            {
+                sql = sql.Where(s => s.category_name.Contains(CategoryName));
+            }
             return View(sql);
         }
 
@@ -91,18 +95,30 @@ namespace T_Touch_Central_Web.Controllers
 
         // POST: Category/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string Id, FormCollection collection)
         {
             try
             {
                 // TODO: Add delete logic here
-
                 var db = new DB();
-                var Sql = db.Category.SingleOrDefault(x => x.Id == id);
-                db.Category.DeleteOnSubmit(Sql);
-                db.SubmitChanges();
 
+                if (Id.Contains(","))
+                {
+                    foreach (var item in Id.Split(',').ToArray())
+                    {
+                        var Sql = db.Category.SingleOrDefault(x => x.Id == int.Parse(item));
+                        db.Category.DeleteOnSubmit(Sql);
+                        db.SubmitChanges();
+                    }
+                }
+                else
+                {
+                    var Sql = db.Category.SingleOrDefault(x => x.Id == int.Parse(Id));
+                    db.Category.DeleteOnSubmit(Sql);
+                    db.SubmitChanges();
+                }
                 return RedirectToAction("Index");
+
             }
             catch
             {

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<DATA.model.Scales>
+@using (Ajax.BeginModalDialogForm())
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" id="checkedAll" name="checkedAll" />全选
+                    </th>
+                    <th>
+                        操作
+                    </th>
+                    <th data-priority="1">
+                        称号
+                    </th>
+                    <th data-priority="2">
+                        称号
+                    </th>
+                    <th data-priority="3">
+                        Ip地址
+                    </th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr id="Row-@item.Id">
+                        <td style="white-space:nowrap">
+                            <input type="checkbox" id="checkedId" name="checkedId" value="@item.Id" />
+                        </td>
+                        <td style="white-space:nowrap">
+                            @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("删除", "Delete", new { id = item.Id })
+                        </td>
+                        <td style="white-space:nowrap">
+                            @Html.DisplayFor(modelItem => item.Pos_No)
+                        </td>
+                        <td style="white-space:nowrap">
+                            @Html.DisplayFor(modelItem => item.ScaleName)
+                        </td>
+                        <td style="white-space:nowrap">
+                            @Html.DisplayFor(modelItem => item.IpAddress)
+                        </td>
+                       
+                    </tr>
+
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+    <input type="submit" value="确定" />
+}

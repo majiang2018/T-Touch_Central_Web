@@ -189,6 +189,7 @@
     </Compile>
     <Compile Include="HttpHelper.cs" />
     <Compile Include="Json.cs" />
+    <Compile Include="ModalDialogExtensions.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Data.designer.cs">
       <AutoGen>True</AutoGen>
@@ -312,6 +313,7 @@
     <Content Include="Views\Scale\Edit.cshtml" />
     <Content Include="Views\Scale\Index.cshtml" />
     <Content Include="Views\Shared\_ViewSwitcher.cshtml" />
+    <Content Include="Views\Product\Scale.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

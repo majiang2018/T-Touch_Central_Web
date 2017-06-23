@@ -179,16 +179,30 @@ namespace T_Touch_Central_Web.Controllers
 
         // POST: Scale/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string Id, FormCollection collection)
         {
             try
             {
                 // TODO: Add delete logic here
                 var db = new DB();
-                var Sql = db.Scales.SingleOrDefault(x => x.Id == id);
-                db.Scales.DeleteOnSubmit(Sql);
-                db.SubmitChanges();
+
+                if (Id.Contains(","))
+                {
+                    foreach (var item in Id.Split(',').ToArray())
+                    {
+                        var Sql = db.Scales.SingleOrDefault(x => x.Id == int.Parse(item));
+                        db.Scales.DeleteOnSubmit(Sql);
+                        db.SubmitChanges();
+                    }
+                }
+                else
+                {
+                    var Sql = db.Scales.SingleOrDefault(x => x.Id == int.Parse(Id));
+                    db.Scales.DeleteOnSubmit(Sql);
+                    db.SubmitChanges();
+                }
                 return RedirectToAction("Index");
+
             }
             catch
             {
@@ -197,47 +211,106 @@ namespace T_Touch_Central_Web.Controllers
         }
 
         [HttpPost]
-        public string DownLoad(string id)
+        public string DownLoad(string Id)
         {
             var result = string.Empty;
             var db = new DB();
-            var Sql = db.Scales.SingleOrDefault(x => x.Id == int.Parse(id));
 
-            try
+            if (Id.Contains(","))
             {
-                //发送请求
-                string[] textArray1 = new string[] { "http://", Sql.IpAddress, ":", "1235", "/info" };
-                string uri = string.Concat(textArray1);
-                if (Sql.Shop_id == null)
+                foreach (var item in Id.Split(',').ToArray())
                 {
-                    result = Sql.IpAddress + ":" + "店号为空！";
-                    return result;
+                    var Sql = db.Scales.SingleOrDefault(x => x.Id == int.Parse(item));
+
+                    try
+                    {
+                        //发送请求
+                        string[] textArray1 = new string[] { "http://", Sql.IpAddress, ":", "1235", "/info" };
+                        string uri = string.Concat(textArray1);
+                        if (Sql.Shop_id == null)
+                        {
+                            result += Sql.IpAddress + ":" + "店号为空！" + Environment.NewLine;
+                            continue;
+                        }
+                        if (Sql.Branch_id == null)
+                        {
+                            result += Sql.IpAddress + ":" + "部门为空！" + Environment.NewLine;
+                            continue;
+                        }
+                        if (Sql.Pos_No == null)
+                        {
+                            result += Sql.IpAddress + ":" + "称号为空！" + Environment.NewLine;
+                            continue;
+                        }
+                        //方法1
+                       string  result1 = json.JsonTree(HttpHelper.HttpPost(uri,
+                          "{\"shop_id\":" + Sql.Shop_id +
+                          ", \"department_id\":" + Sql.Branch_id +
+                          ", \"scale_id\":" + Sql.Pos_No +
+                          "}")) +
+                          Environment.NewLine;
+                        if (result1.Contains("OK"))
+                        {
+                            result += Sql.IpAddress + ":下载成功！" + Environment.NewLine;
+                        }
+                        else
+                        {
+                            result += Sql.IpAddress + ":下载失败！" + Environment.NewLine;
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        result += Sql.IpAddress + ":" +ex.Message+ Environment.NewLine;
+                    }
                 }
-                if (Sql.Branch_id == null)
-                {
-                    result = Sql.IpAddress + ":" + "部门为空！";
-                    return result;
-                }
-                if (Sql.Pos_No == null)
-                {
-                    result = Sql.IpAddress + ":" + "称号为空！";
-                    return result;
-                }
-                //方法1
-                result = json.JsonTree(HttpHelper.HttpPost(uri,
-                  "{\"shop_id\":" + Sql.Shop_id +
-                  ", \"department_id\":" + Sql.Branch_id +
-                  ", \"scale_id\":" + Sql.Pos_No +
-                  "}")) +
-                  Environment.NewLine + Environment.NewLine;
+
             }
-            catch (Exception ex)
+            else
             {
-                result = Sql.IpAddress + ":" + ex.Message;
-            }
-            if (result.Contains("OK"))
-            {
-                result = Sql.IpAddress + ":下载成功！";
+                var Sql = db.Scales.SingleOrDefault(x => x.Id == int.Parse(Id));
+
+                try
+                {
+                     //发送请求
+                    string[] textArray1 = new string[] { "http://", Sql.IpAddress, ":", "1235", "/info" };
+                    string uri = string.Concat(textArray1);
+                    if (Sql.Shop_id == null)
+                    {
+                        result += Sql.IpAddress + ":" + "店号为空！" + Environment.NewLine;
+                        return result;
+                    }
+                    if (Sql.Branch_id == null)
+                    {
+                        result += Sql.IpAddress + ":" + "部门为空！" + Environment.NewLine;
+                        return result;
+                    }
+                    if (Sql.Pos_No == null)
+                    {
+                        result += Sql.IpAddress + ":" + "称号为空！" + Environment.NewLine;
+                        return result;
+                    }
+                    //方法1
+                  string  result1 = json.JsonTree(HttpHelper.HttpPost(uri,
+                      "{\"shop_id\":" + Sql.Shop_id +
+                      ", \"department_id\":" + Sql.Branch_id +
+                      ", \"scale_id\":" + Sql.Pos_No +
+                      "}")) +
+                      Environment.NewLine;
+                    if (result1.Contains("OK"))
+                    {
+                        result += Sql.IpAddress + ":下载成功！" + Environment.NewLine;
+                    }
+                    else
+                    {
+                        result += Sql.IpAddress + ":下载失败！" + Environment.NewLine;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    result += Sql.IpAddress + ":" + ex.Message + Environment.NewLine;
+                }
+               
             }
             return result;
         }
