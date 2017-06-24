@@ -23,12 +23,10 @@ namespace T_Touch_Central_Web
                 request.Method = "Delete";
                 byte[] payload = Encoding.UTF8.GetBytes(data);
                 request.ContentLength = payload.Length;
-
                 //发送post的请求
                 Stream writer = request.GetRequestStream();
                 writer.Write(payload, 0, payload.Length);
                 writer.Close();
-
                 //接受返回来的数据
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 Stream stream = response.GetResponseStream();
@@ -94,7 +92,6 @@ namespace T_Touch_Central_Web
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.ContentType = "application/json";
                 request.Method = "GET";
-
                 //接受返回来的数据
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 Stream stream = response.GetResponseStream();

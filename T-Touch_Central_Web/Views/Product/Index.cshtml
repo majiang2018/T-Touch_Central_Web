@@ -1,9 +1,8 @@
-﻿
-@model IEnumerable<DATA.model.Product>
+﻿@model IEnumerable<DATA.model.Product>
 @{
     ViewBag.Title = "产品";
 }
-<script src="~/Scripts/jquery-ui.js"></script>
+
 <h2>产品</h2>
 
 @using (Html.BeginForm())
@@ -291,8 +290,8 @@
     </div>
 }
 
-
 <div id="dialog" style="overflow: hidden;"/>
+<script src="~/Scripts/jquery-ui.js"></script>
 <script type="text/JavaScript">
     //对话框
     $('#dialog').dialog({

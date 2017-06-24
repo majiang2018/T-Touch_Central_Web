@@ -1,0 +1,97 @@
+﻿@model IEnumerable<DATA.model.Scales>
+ @using (Html.BeginForm())
+ {
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" id="checkedAll1" name="checkedAll1" />全选
+                    </th>
+                    <th>
+                        操作
+                    </th>
+                    <th data-priority="1">
+                        称号
+                    </th>
+                    <th data-priority="2">
+                        称号
+                    </th>
+                    <th data-priority="3">
+                        Ip地址
+                    </th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr id="Row-@item.Id">
+                        <td style="white-space:nowrap">
+                            <input type="checkbox" id="checkedId1" name="checkedId1" value="@item.Id" />
+                        </td>
+                        <td style="white-space:nowrap">
+                            @Html.ActionLink("编辑", "Edit", "Scale", new { id = item.Id }, "")|
+                            @Html.ActionLink("删除", "Delete","Scale", new { id = item.Id },"")
+                        </td>
+                        <td style="white-space:nowrap">
+                            @Html.DisplayFor(modelItem => item.Pos_No)
+                        </td>
+                        <td style="white-space:nowrap">
+                            @Html.DisplayFor(modelItem => item.ScaleName)
+                        </td>
+                        <td style="white-space:nowrap">
+                            @Html.DisplayFor(modelItem => item.IpAddress)
+                        </td>
+                       
+                    </tr>
+
+                }
+            </tbody>
+
+        </table>
+    </div>
+    <input type="button" id="sendData" value="确定" />
+ }
+<script type="text/JavaScript">
+    //表头CheckBox操作全选或取消全选
+    $("#checkedAll1").click(function () {
+        var ischecked = this.checked;
+        $("input:checkbox[name='checkedId1']").each(function () {
+            this.checked = ischecked;
+        });
+    });
+    $("#sendData").click(function () {
+        var ids = window.parent.$("#dialog").data("Id");
+
+        //确定至少选择一项
+        if ($("input[name='checkedId1']:checked").length == 0) {
+            alert("请选择一项下载！");
+
+        }
+            //下载到称
+        else {
+            var ips = "";
+            $("input[name='checkedId1']:checked").each(function () {
+                var ip = $(this).attr("value");
+                if (ip != null) {
+                    ips += ip + ",";
+                }
+            });
+            ips = ips.substr(0, ips.length - 1);
+            $.ajax({
+                url: "/Category/DownLoad/",
+                data: { Id: ids, Ip: ips },
+                async: false,
+                type: "POST",
+                contentType: "application/x-www-form-urlencoded",
+                //成功之后调用的函数
+                success: function (data) {
+                    alert(data);
+                    window.parent.$("#dialog").dialog("close");
+                   
+                },
+            })
+        }
+    });
+</script>

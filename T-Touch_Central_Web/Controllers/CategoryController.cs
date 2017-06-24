@@ -1,6 +1,11 @@
 ﻿using DATA;
 using DATA.model;
+using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Text;
 using System.Web.Mvc;
 
 namespace T_Touch_Central_Web.Controllers
@@ -125,5 +130,78 @@ namespace T_Touch_Central_Web.Controllers
                 return View();
             }
         }
+        public ActionResult Scale()
+        {
+            var db = new DB();
+            var sql = from t in db.Scales select t;
+            return PartialView(sql);
+        }
+
+        [HttpPost]
+        public string DownLoad(string Id, string Ip)
+        {
+            var db = new DB();
+            DataTable dt = new DataTable();
+            string categorys;
+            var result = string.Empty;
+            var result1 = string.Empty;
+            List<string> id = Id.Split(',').ToList();
+            var category = from t in db.Category
+                          where id.Contains(t.Id.ToString())
+                          select new
+                          {
+                              t.category_num,
+                              t.category_name,
+                              t.describ,
+                              t.order_index,
+                              t.image
+                          };
+
+            dt = Linq.ToDataTable(category);
+            categorys = json.DataTableToJson(dt);
+            if (categorys != "")
+            {
+                foreach (var item in Ip.Split(',').ToArray())
+                {
+                    var Sql = db.Scales.SingleOrDefault(x => x.Id == int.Parse(item));
+                    try
+                    {
+                        //测试IP
+                        Ping pingSender = new Ping();
+                        PingOptions options = new PingOptions();
+                        string data = "";
+                        byte[] buffer = Encoding.ASCII.GetBytes(data);
+                        int timeout = 120;
+                        PingReply reply = pingSender.Send(Sql.IpAddress, timeout, buffer, options);
+                        if (reply.Status == IPStatus.Success)
+                        {
+                            //发送产品
+                            string[] textArray1 = new string[] { "http://", Sql.IpAddress, ":", "1235", "/category" };
+                            string uri = string.Concat(textArray1);
+                            result1 += HttpHelper.HttpPost(uri, categorys);
+                            if (result1.Contains("OK"))
+                            {
+                                result += Sql.IpAddress + ":下载成功！" + Environment.NewLine;
+                            }
+                            else
+                            {
+                                result += Sql.IpAddress + ":下载失败！" + Environment.NewLine;
+                            }
+                        }
+                        else
+                        {
+                            result += Sql.IpAddress + ":网络断线！" + Environment.NewLine;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        result += Sql.IpAddress + ":" + ex.Message + Environment.NewLine;
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }
+

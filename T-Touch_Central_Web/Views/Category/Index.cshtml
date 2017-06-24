@@ -78,7 +78,20 @@
     </table>
 </div>
 }
+<div id="dialog" style="overflow: hidden;" />
+<script src="~/Scripts/jquery-ui.js"></script>
 <script type="text/JavaScript">
+    //对话框
+    $('#dialog').dialog({
+        autoOpen: false,
+        width: 500,
+        resizable: false,
+        title: '选择称',
+        modal: true,
+        open: function (event, ui) {
+            $(this).load('@Url.Action("Scale", "Category")');
+        }
+    });
     //表头CheckBox操作全选或取消全选
     $("#checkedAll").click(function () {
         var ischecked = this.checked;
@@ -120,27 +133,21 @@
         //确定至少选择一项
         if ($("[type='checkbox']:checked").length == 0) {
             alert("请选择一项下载！");
+
         }
             //下载到称
         else {
-            var ids="";
+            var ids = "";
             $("[type='checkbox']:checked").each(function () {
                 var id = $(this).attr("value");
                 if (id != null) {
-                    ids+=id+",";
+                    ids += id + ",";
                 }
             });
-            ids= ids.substr(0,ids.length-1);
-            $.ajax({
-                url: "/Category/DownLoad/" + ids,
-                async: false,
-                type: "POST",
-                contentType: "application/x-www-form-urlencoded",
-                //成功之后调用的函数
-                success: function (data) {
-                    alert(data);
-                },
-            });
+            ids = ids.substr(0, ids.length - 1);
+            if (ids != null) {
+                $('#dialog').data("Id", ids).dialog('open');
+            }
         }
     });
 </script>

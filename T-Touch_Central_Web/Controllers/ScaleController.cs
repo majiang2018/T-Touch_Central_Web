@@ -215,40 +215,46 @@ namespace T_Touch_Central_Web.Controllers
         {
             var result = string.Empty;
             var db = new DB();
-
-            if (Id.Contains(","))
+            foreach (var item in Id.Split(',').ToArray())
             {
-                foreach (var item in Id.Split(',').ToArray())
-                {
-                    var Sql = db.Scales.SingleOrDefault(x => x.Id == int.Parse(item));
+                var Sql = db.Scales.SingleOrDefault(x => x.Id == int.Parse(item));
 
-                    try
+                try
+                {
+                    //发送请求
+                    string[] textArray1 = new string[] { "http://", Sql.IpAddress, ":", "1235", "/info" };
+                    string uri = string.Concat(textArray1);
+                    if (Sql.Shop_id == null)
                     {
-                        //发送请求
-                        string[] textArray1 = new string[] { "http://", Sql.IpAddress, ":", "1235", "/info" };
-                        string uri = string.Concat(textArray1);
-                        if (Sql.Shop_id == null)
-                        {
-                            result += Sql.IpAddress + ":" + "店号为空！" + Environment.NewLine;
-                            continue;
-                        }
-                        if (Sql.Branch_id == null)
-                        {
-                            result += Sql.IpAddress + ":" + "部门为空！" + Environment.NewLine;
-                            continue;
-                        }
-                        if (Sql.Pos_No == null)
-                        {
-                            result += Sql.IpAddress + ":" + "称号为空！" + Environment.NewLine;
-                            continue;
-                        }
+                        result += Sql.IpAddress + ":" + "店号为空！" + Environment.NewLine;
+                        continue;
+                    }
+                    if (Sql.Branch_id == null)
+                    {
+                        result += Sql.IpAddress + ":" + "部门为空！" + Environment.NewLine;
+                        continue;
+                    }
+                    if (Sql.Pos_No == null)
+                    {
+                        result += Sql.IpAddress + ":" + "称号为空！" + Environment.NewLine;
+                        continue;
+                    }
+                    //测试IP
+                    Ping pingSender = new Ping();
+                    PingOptions options = new PingOptions();
+                    string data = "";
+                    byte[] buffer = Encoding.ASCII.GetBytes(data);
+                    int timeout = 120;
+                    PingReply reply = pingSender.Send(Sql.IpAddress, timeout, buffer, options);
+                    if (reply.Status == IPStatus.Success)
+                    {
                         //方法1
-                       string  result1 = json.JsonTree(HttpHelper.HttpPost(uri,
-                          "{\"shop_id\":" + Sql.Shop_id +
-                          ", \"department_id\":" + Sql.Branch_id +
-                          ", \"scale_id\":" + Sql.Pos_No +
-                          "}")) +
-                          Environment.NewLine;
+                        string result1 = json.JsonTree(HttpHelper.HttpPost(uri,
+                      "{\"shop_id\":" + Sql.Shop_id +
+                      ", \"department_id\":" + Sql.Branch_id +
+                      ", \"scale_id\":" + Sql.Pos_No +
+                      "}")) +
+                      Environment.NewLine;
                         if (result1.Contains("OK"))
                         {
                             result += Sql.IpAddress + ":下载成功！" + Environment.NewLine;
@@ -257,60 +263,17 @@ namespace T_Touch_Central_Web.Controllers
                         {
                             result += Sql.IpAddress + ":下载失败！" + Environment.NewLine;
                         }
-
-                    }
-                    catch (Exception ex)
-                    {
-                        result += Sql.IpAddress + ":" +ex.Message+ Environment.NewLine;
-                    }
-                }
-
-            }
-            else
-            {
-                var Sql = db.Scales.SingleOrDefault(x => x.Id == int.Parse(Id));
-
-                try
-                {
-                     //发送请求
-                    string[] textArray1 = new string[] { "http://", Sql.IpAddress, ":", "1235", "/info" };
-                    string uri = string.Concat(textArray1);
-                    if (Sql.Shop_id == null)
-                    {
-                        result += Sql.IpAddress + ":" + "店号为空！" + Environment.NewLine;
-                        return result;
-                    }
-                    if (Sql.Branch_id == null)
-                    {
-                        result += Sql.IpAddress + ":" + "部门为空！" + Environment.NewLine;
-                        return result;
-                    }
-                    if (Sql.Pos_No == null)
-                    {
-                        result += Sql.IpAddress + ":" + "称号为空！" + Environment.NewLine;
-                        return result;
-                    }
-                    //方法1
-                  string  result1 = json.JsonTree(HttpHelper.HttpPost(uri,
-                      "{\"shop_id\":" + Sql.Shop_id +
-                      ", \"department_id\":" + Sql.Branch_id +
-                      ", \"scale_id\":" + Sql.Pos_No +
-                      "}")) +
-                      Environment.NewLine;
-                    if (result1.Contains("OK"))
-                    {
-                        result += Sql.IpAddress + ":下载成功！" + Environment.NewLine;
                     }
                     else
                     {
-                        result += Sql.IpAddress + ":下载失败！" + Environment.NewLine;
+                        result += Sql.IpAddress + ":网络断线！" + Environment.NewLine;
                     }
+
                 }
                 catch (Exception ex)
                 {
                     result += Sql.IpAddress + ":" + ex.Message + Environment.NewLine;
                 }
-               
             }
             return result;
         }

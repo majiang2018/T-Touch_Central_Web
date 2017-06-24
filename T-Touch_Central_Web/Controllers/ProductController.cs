@@ -1,6 +1,11 @@
 ﻿using DATA;
 using DATA.model;
+using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Text;
 using System.Web.Mvc;
 
 namespace T_Touch_Central_Web.Controllers
@@ -134,8 +139,67 @@ namespace T_Touch_Central_Web.Controllers
         [HttpPost]
         public string DownLoad(string Id,string Ip)
         {
+            var db = new DB();
+            DataTable dt = new DataTable();
+            string products;
             var result = string.Empty;
-            result = Id + ":" + Ip;
+            var result1 = string.Empty;
+            List<string> id = Id.Split(',').ToList();
+             var product = from t in db.Product
+                          where id.Contains(t.Id.ToString())  
+                          select new
+                          {
+                              product_number = t.product_num,
+                              product_code = t.barcode,
+                              t.product_name,
+                              product_abbr = t.abbr,
+                              original_price = t.price,
+                              sales_price = t.price_lowest
+                          };
+
+            dt = Linq.ToDataTable(product);
+            products = json.DataTableToJson(dt);
+            if (products != "")
+            {
+                    foreach (var item in Ip.Split(',').ToArray())
+                    {
+                        var Sql = db.Scales.SingleOrDefault(x => x.Id == int.Parse(item));
+                        try
+                        {
+                           //测试IP
+                            Ping pingSender = new Ping();
+                            PingOptions options = new PingOptions();
+                            string data = "";
+                            byte[] buffer = Encoding.ASCII.GetBytes(data);
+                            int timeout = 120;
+                            PingReply reply = pingSender.Send(Sql.IpAddress, timeout, buffer, options);
+                            if (reply.Status == IPStatus.Success)
+                            {
+                                //发送产品
+                                string[] textArray1 = new string[] { "http://", Sql.IpAddress, ":", "1235", "/products" };
+                                string uri = string.Concat(textArray1);
+                                result1 += HttpHelper.HttpPost(uri, products);
+                                if (result1.Contains("OK"))
+                                {
+                                    result += Sql.IpAddress + ":下载成功！" + Environment.NewLine;
+                                }
+                                else
+                                {
+                                    result += Sql.IpAddress + ":下载失败！" + Environment.NewLine;
+                                }
+                            }
+                            else
+                            {
+                                result += Sql.IpAddress + ":网络断线！" + Environment.NewLine;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            result += Sql.IpAddress + ":" + ex.Message + Environment.NewLine;
+                        }
+                    }
+                }
+      
             return result;
         }
     }
