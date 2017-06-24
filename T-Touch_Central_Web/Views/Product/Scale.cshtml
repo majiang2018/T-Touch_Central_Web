@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<DATA.model.Scales>
- @using (Html.BeginForm())
- {
+@using (Html.BeginForm())
+{
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -20,7 +20,7 @@
                     <th data-priority="3">
                         Ip地址
                     </th>
-                   
+
                 </tr>
             </thead>
             <tbody>
@@ -32,7 +32,7 @@
                         </td>
                         <td style="white-space:nowrap">
                             @Html.ActionLink("编辑", "Edit", "Scale", new { id = item.Id }, "")|
-                            @Html.ActionLink("删除", "Delete","Scale", new { id = item.Id },"")
+                            @Html.ActionLink("删除", "Delete", "Scale", new { id = item.Id }, "")
                         </td>
                         <td style="white-space:nowrap">
                             @Html.DisplayFor(modelItem => item.Pos_No)
@@ -43,16 +43,14 @@
                         <td style="white-space:nowrap">
                             @Html.DisplayFor(modelItem => item.IpAddress)
                         </td>
-                       
                     </tr>
-
                 }
             </tbody>
 
         </table>
     </div>
     <input type="button" id="sendData" value="确定" />
- }
+}
 <script type="text/JavaScript">
     //表头CheckBox操作全选或取消全选
     $("#checkedAll1").click(function () {
@@ -89,7 +87,6 @@
                 success: function (data) {
                     alert(data);
                     window.parent.$("#dialog").dialog("close");
-                   
                 },
             })
         }

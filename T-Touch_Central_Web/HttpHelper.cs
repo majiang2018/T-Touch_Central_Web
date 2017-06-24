@@ -35,7 +35,6 @@ namespace T_Touch_Central_Web
                 reader.Close();
                 stream.Close();
                 response.Close();
-
                 return response.StatusCode + " " + value;
             }
             catch (Exception ex)

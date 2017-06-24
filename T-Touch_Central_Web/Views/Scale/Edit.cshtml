@@ -80,12 +80,12 @@
                     }
                     else
                     {
-                        <img id="images" width="280" height="70"  alt="屏幕保护" style="border:0px" />
+                        <img id="images" width="280" height="70" alt="屏幕保护" style="border:0px" />
                     }
-                 </div> 
-                    @Html.EditorFor(model => model.Images, new { htmlAttributes = new { type = "file", @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Images, "", new { @class = "text-danger" })
                 </div>
+                @Html.EditorFor(model => model.Images, new { htmlAttributes = new { type = "file", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Images, "", new { @class = "text-danger" })
+            </div>
         </div>
 
         <div class="form-group">
@@ -95,7 +95,7 @@
                     var image1 = string.Format("data:image/jpeg;base64,{0}", Model.Images1);
                 }
                 <div style="width:280px;height:70px;border:1px solid #CCCCCC">
-                    @if (image1.Length> "data:image/jpeg;base64,".Length)
+                    @if (image1.Length > "data:image/jpeg;base64,".Length)
                     {
                         <img id="images1" width="90" height="70" src="@image1" alt="主背景图片" style="border:0px" />
 
@@ -104,7 +104,7 @@
                     {
                         <img id="images1" width="280" height="70" alt="主背景图片" style="border:0px" />
                     }
-                </div> 
+                </div>
                 @Html.EditorFor(model => model.Images1, new { htmlAttributes = new { type = "file", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Images1, "", new { @class = "text-danger" })
             </div>

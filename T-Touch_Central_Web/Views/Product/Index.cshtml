@@ -290,7 +290,7 @@
     </div>
 }
 
-<div id="dialog" style="overflow: hidden;"/>
+<div id="dialog" style="overflow: hidden;" />
 <script src="~/Scripts/jquery-ui.js"></script>
 <script type="text/JavaScript">
     //对话框
@@ -314,13 +314,13 @@
 
     $("#btn_Delete").click(function () {
         //确定至少选择一项
-        if ( $("[type='checkbox']:checked").length == 0) {
+        if ($("[type='checkbox']:checked").length == 0) {
             alert("请选择一项删除！");
         }
             //批量删除
         else if (confirm("您确定要删除选择的记录吗？")) {
-           var ids = "";
-             $("[type='checkbox']:checked").each(function () {
+            var ids = "";
+            $("[type='checkbox']:checked").each(function () {
                 var id = $(this).attr("value");
                 if (id != null) {
                     ids += id + ",";
@@ -345,12 +345,11 @@
         //确定至少选择一项
         if ($("[type='checkbox']:checked").length == 0) {
             alert("请选择一项下载！");
-
         }
             //下载到称
         else {
             var ids = "";
-              $("[type='checkbox']:checked").each(function () {
+            $("[type='checkbox']:checked").each(function () {
                 var id = $(this).attr("value");
                 if (id != null) {
                     ids += id + ",";
@@ -358,7 +357,7 @@
             });
             ids = ids.substr(0, ids.length - 1);
             if (ids != null) {
-                $('#dialog').data("Id",ids).dialog('open');
+                $('#dialog').data("Id", ids).dialog('open');
             }
         }
     });
