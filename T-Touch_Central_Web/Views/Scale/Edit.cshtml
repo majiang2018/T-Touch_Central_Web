@@ -3,7 +3,6 @@
     ViewBag.Title = "编辑";
 }
 <h2>编辑</h2>
-
 @using (Html.BeginForm("Edit", "Scale", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -12,7 +11,6 @@
         new SelectListItem() { Text = "True", Value = "True" },
         new SelectListItem() { Text = "False", Value = "False" },
     };
-
     <div class="row">
         <h4>&nbsp;&nbsp;&nbsp;设备</h4>
         <hr />
@@ -25,7 +23,6 @@
                 @Html.ValidationMessageFor(model => model.Shop_id, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.Label("部门", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
@@ -33,7 +30,6 @@
                 @Html.ValidationMessageFor(model => model.Branch_id, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.Label("称号", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
@@ -41,7 +37,6 @@
                 @Html.ValidationMessageFor(model => model.Pos_No, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.Label("称名", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
@@ -49,7 +44,6 @@
                 @Html.ValidationMessageFor(model => model.ScaleName, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.Label("Ip地址", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
@@ -57,7 +51,6 @@
                 @Html.ValidationMessageFor(model => model.IpAddress, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.Label("启用", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
@@ -65,7 +58,6 @@
                 @Html.ValidationMessageFor(model => model.Enable, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.Label("屏幕保护", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
@@ -76,7 +68,6 @@
                     @if (image.Length > "data:image/jpeg;base64,".Length)
                     {
                         <img id="images" width="90" height="70" src="@image" alt="屏幕保护" style="border:0px" />
-
                     }
                     else
                     {
@@ -87,7 +78,6 @@
                 @Html.ValidationMessageFor(model => model.Images, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.Label("主背景图片", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
@@ -98,7 +88,6 @@
                     @if (image1.Length > "data:image/jpeg;base64,".Length)
                     {
                         <img id="images1" width="90" height="70" src="@image1" alt="主背景图片" style="border:0px" />
-
                     }
                     else
                     {
@@ -109,7 +98,6 @@
                 @Html.ValidationMessageFor(model => model.Images1, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.Label("主屏背景颜色", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
@@ -124,10 +112,8 @@
                 @Html.ValidationMessage("Remark", "", new { @class = "text-danger" })
             </div>
         </div>
-
     </div>
     <br />
-
     <div class="form-group">
         <div>
             <input type="submit" value="保存" class="btn btn-default" />
@@ -153,7 +139,6 @@
         };
         reader.readAsDataURL(this.files[0]);
     };
-
     document.getElementById("Images1").onchange = function () {
         var reader = new FileReader();
         reader.onload = function (e) {

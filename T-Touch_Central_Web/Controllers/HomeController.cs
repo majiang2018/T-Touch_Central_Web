@@ -4,6 +4,7 @@ namespace T_Touch_Central_Web.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize]
         public ActionResult Index()
         {
             return View();

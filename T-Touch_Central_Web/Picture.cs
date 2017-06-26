@@ -54,7 +54,6 @@ namespace T_Touch_Central_Web
             g.Dispose();
 
             //以下代码为保存图片时，设置压缩质量
-
             EncoderParameters ep = new EncoderParameters();
             long[] qy = new long[1];
             qy[0] = flag;//设置压缩的比例1-100

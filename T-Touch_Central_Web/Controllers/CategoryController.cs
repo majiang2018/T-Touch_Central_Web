@@ -31,6 +31,7 @@ namespace T_Touch_Central_Web.Controllers
         }
 
         // GET: Category/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -62,6 +63,7 @@ namespace T_Touch_Central_Web.Controllers
         }
 
         // GET: Category/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
             var db = new DB();
@@ -91,6 +93,7 @@ namespace T_Touch_Central_Web.Controllers
         }
 
         // GET: Category/Delete/5
+        [Authorize]
         public ActionResult Delete(int id)
         {
             var db = new DB();

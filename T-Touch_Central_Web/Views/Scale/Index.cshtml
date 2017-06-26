@@ -74,7 +74,6 @@
                                 @{
                                     bool p = item.ConnectedState == "True" || item.ConnectedState == "1";
                                 }
-
                                 @if (p)
                                 {
                                     <font size="2" color="green">在线</font>
@@ -115,7 +114,6 @@
         <p>&copy; @DateTime.Now.Year - Tscale</p>
     </footer>
     <script type="text/JavaScript">
-
         //表头CheckBox操作全选或取消全选
         $("#checkedAll").click(function () {
             var ischecked = this.checked;
@@ -123,7 +121,6 @@
                 this.checked = ischecked;
             });
         });
-
         $("#btn_Delete").click(function () {
             //确定至少选择一项
             if ($("[type='checkbox']:checked").length == 0) {

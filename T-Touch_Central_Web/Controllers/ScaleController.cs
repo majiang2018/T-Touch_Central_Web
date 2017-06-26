@@ -52,6 +52,7 @@ namespace T_Touch_Central_Web.Controllers
         }
 
         // GET: Scale/Create
+        [Authorize]
         public ActionResult Create()
         {
             var db = new DB();
@@ -124,6 +125,7 @@ namespace T_Touch_Central_Web.Controllers
         }
 
         // GET: Scale/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
             var db = new DB();
@@ -170,6 +172,7 @@ namespace T_Touch_Central_Web.Controllers
         }
 
         // GET: Scale/Delete/5
+        [Authorize]
         public ActionResult Delete(int id)
         {
             var db = new DB();
