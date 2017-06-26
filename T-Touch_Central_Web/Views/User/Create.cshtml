@@ -30,7 +30,6 @@
             @Html.Label("用户名(必填)", htmlAttributes: new { @class = "control-label col-md-2" })
              <div class="col-md-4">
                 <input id="user_name" type="text" name="user_name" required class="form-control">
-                @Html.EditorFor(model => model.user_name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.user_name, "", new { @class = "text-danger" })
             </div>
         </div>
