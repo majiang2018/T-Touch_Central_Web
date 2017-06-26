@@ -142,7 +142,6 @@ namespace T_Touch_Central_Web.Controllers
             {
                 // TODO: Add update logic here
 
-
                 string images = string.Empty;
                 images = ToBase64(Request.Files["Images"]);
 

@@ -5,7 +5,7 @@
 
 <h2>新建</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Category", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="row">
@@ -22,8 +22,7 @@
             </div>
 
             <div class="form-group">
-                @Html.Label("类别名称", htmlAttributes: new { @class = "control-label col-md-1" })
-                <font size="5" color="red" class="control-label col-md-1">*</font>
+                @Html.Label("类别名称(必填)", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-4">
                     <input id="category_name" type="text" name="category_name" required class="form-control">
                     @Html.ValidationMessageFor(model => model.category_name, "", new { @class = "text-danger" })
@@ -46,13 +45,17 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.Label("图片", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.images, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.images, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("图片", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <div style="width:280px;height:70px;border:1px solid #CCCCCC">
+                    <img id="Images" width="280" height="70" alt="屏幕保护" style="border:0px" />
                 </div>
+                @Html.EditorFor(model => model.images, new { htmlAttributes = new { type = "file", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.images, "", new { @class = "text-danger" })
             </div>
+        </div>
+           
     </div>
     <br />
         <div class="form-group">
@@ -65,7 +68,18 @@
 <div>
     @Html.ActionLink("返回", "Index")
 </div>
-
+<script>
+    
+    document.getElementById("images").onchange = function () {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById("Images").width = 90;
+            document.getElementById("Images").height = 70;
+            document.getElementById("Images").src = e.target.result;
+        };
+        reader.readAsDataURL(this.files[0]);
+    };
+</script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

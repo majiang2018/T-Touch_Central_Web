@@ -3,9 +3,11 @@ using DATA.model;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 
 namespace T_Touch_Central_Web.Controllers
@@ -46,7 +48,15 @@ namespace T_Touch_Central_Web.Controllers
             }
             return View();
         }
-
+        // ToBase64
+        public static string ToBase64(HttpPostedFileBase file)
+        {
+            Stream stream = file.InputStream;
+            byte[] bytes = new byte[stream.Length];
+            long data = file.InputStream.Read(bytes, 0, (int)stream.Length);
+            stream.Close();
+            return Convert.ToBase64String(bytes, 0, bytes.Length);
+        }
         // POST: Category/Create
         [HttpPost]
         public ActionResult Create(Category Sql)
@@ -56,8 +66,21 @@ namespace T_Touch_Central_Web.Controllers
                 try
                 {
                     // TODO: Add insert logic here
+
+                    string Images = string.Empty;
+                    Images = ToBase64(Request.Files["images"]);
                     var db = new DB();
-                    db.Category.InsertOnSubmit(Sql);
+                    var category = new Category
+                    {
+                        category_num = Sql.category_num,
+                        category_name = Sql.category_name,
+                        describ = Sql.describ,
+                        order_index = Sql.order_index,
+                        image = Sql.category_num+".png",
+                        images = Images,
+                    };
+
+                    db.Category.InsertOnSubmit(category);
                     db.SubmitChanges();
                     return RedirectToAction("Index");
                 }
@@ -87,13 +110,20 @@ namespace T_Touch_Central_Web.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                string Images = string.Empty;
+                Images = ToBase64(Request.Files["images"]);
+
                 var db = new DB();
                 var Sql = db.Category.SingleOrDefault(x => x.Id == id);
+                if (Images != string.Empty)
+                {
+                    Sql.image = Sql.category_num + ".png";
+                    Sql.images = Images;
+                }
+              
                 UpdateModel(Sql, collection.ToValueProvider());
                 db.SubmitChanges();
                 return RedirectToAction("Index");
-
             }
             catch
             {

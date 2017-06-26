@@ -33,7 +33,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.image)
+            <img id="images" width="90" height="70" src="data:image/jpeg;base64,@Html.DisplayFor(model => model.images)" alt="图片" style="border:0px" />
         </dd>
         <dt>
             @Html.DisplayName("描述")

@@ -17,16 +17,15 @@
         <div class="form-group">
             @Html.Label("序号", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.EditorFor(model => model.department_num, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.department_num, new { htmlAttributes = new { @class = "form-control" ,required = "required" } })
                 @Html.ValidationMessageFor(model => model.department_num, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.Label("部门名", htmlAttributes: new { @class = "control-label col-md-1" })
-            <font size="5" color="red" class="control-label col-md-1">*</font>
-            <div class="col-md-4">
-                @Html.EditorFor(model => model.department_name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.Label("部门名(必填)", htmlAttributes: new { @class = "control-label col-md-2" })
+             <div class="col-md-4">
+                @Html.EditorFor(model => model.department_name, new { htmlAttributes = new { @class = "form-control",required = "required" } })
                 @Html.ValidationMessageFor(model => model.department_name, "", new { @class = "text-danger" })
             </div>
         </div>

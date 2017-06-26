@@ -55,12 +55,23 @@ namespace T_Touch_Central_Web.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {
+                {    
                     // TODO: Add insert logic here
                     var db = new DB();
-                    db.Tab_User.InsertOnSubmit(Sql);
+                    var tab_user = new Tab_User
+                    {
+                        user_num=Sql.user_num,
+                        user_name=Sql.user_name,
+                        user_password=md5.MD5Encrypt(Sql.user_password),
+                        user_permission=Sql.user_permission,
+                        phone=Sql.phone,
+                        address=Sql.address
+                    };
+
+                    db.Tab_User.InsertOnSubmit(tab_user);
                     db.SubmitChanges();
                     return RedirectToAction("Index");
+                   
                 }
                 catch
                 {
@@ -91,6 +102,7 @@ namespace T_Touch_Central_Web.Controllers
                 // TODO: Add update logic here
                 var db = new DB();
                 var Sql = db.Tab_User.SingleOrDefault(x => x._id == id);
+                Sql.user_password = md5.MD5Encrypt(Sql.user_password);
                 UpdateModel(Sql, collection.ToValueProvider());
                 db.SubmitChanges();
                 return RedirectToAction("Index");

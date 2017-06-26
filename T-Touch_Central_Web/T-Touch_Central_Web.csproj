@@ -193,6 +193,7 @@
     <Compile Include="HttpHelper.cs" />
     <Compile Include="Json.cs" />
     <Compile Include="Linq.cs" />
+    <Compile Include="MD5.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Data.designer.cs">
       <AutoGen>True</AutoGen>
