@@ -22,13 +22,12 @@
 
             <div class="row">
                 <div class="form-group">
-                     @Html.Label("商品编号(必填)", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.Label("商品编号(必填)", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-4">
-                        <input id="product_num" type="text" name="product_num" required class="form-control" value="@ViewBag.Message">
+                        @Html.EditorFor(model => model.product_num, new { htmlAttributes = new { Value = ViewBag.Message,@class = "form-control", required = "required" } })
                         @Html.ValidationMessageFor(model => model.product_num, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
                 <div class="form-group">
                     @Html.Label("商品条码", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-4">
@@ -40,7 +39,7 @@
                 <div class="form-group">
                     @Html.Label("商品名称(必填)", htmlAttributes: new { @class = "control-label col-md-2" })
                      <div class="col-md-4">
-                        <input id="product_name" type="text" name="product_name" required class="form-control">
+                        @Html.EditorFor(model => model.product_name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                         @Html.ValidationMessageFor(model => model.product_name, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -55,8 +54,8 @@
                 <div class="form-group">
                      @Html.Label("价格(必填)", htmlAttributes: new { @class = "control-label col-md-2" })
                      <div class="col-md-4">
-                        <input id="price" type="text" name="price" required class="form-control">
-                        @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
+                         @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                         @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
