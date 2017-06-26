@@ -126,6 +126,58 @@
       <Column Name="Remark" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Tab_User" Member="Tab_User">
+    <Type Name="Tab_User">
+      <Column Name="[_id]" Member="_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="shop_id" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="branch_id" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="pos_no" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="user_num" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="user_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="user_password" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="user_permission" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="add_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="add_user" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="update_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ver" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="images" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tab_Tax" Member="Tab_Tax">
+    <Type Name="Tab_Tax">
+      <Column Name="[_id]" Member="_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="shop_id" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="branch_id" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="pos_no" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="tax_num" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="tax_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="tax_value" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="tax_type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="add_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="add_user" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="update_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="update_user" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ver" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tab_Department" Member="Tab_Department">
+    <Type Name="Tab_Department">
+      <Column Name="[_id]" Member="_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="shop_id" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="branch_id" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="pos_no" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="department_num" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="department_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="remark" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="add_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="add_user" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="update_time" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="update_user" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ver" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.UpdateState" Method="UpdateState">
     <Parameter Name="id" Type="System.String" DbType="NVarChar(50)" />
     <Parameter Name="isOnline" Type="System.String" DbType="NVarChar(50)" />

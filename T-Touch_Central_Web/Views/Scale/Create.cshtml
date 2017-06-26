@@ -49,7 +49,8 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Ip 地址", htmlAttributes: new { @class = "control-label col-md-2" })
+             @Html.Label("Ip 地址", htmlAttributes: new { @class = "control-label col-md-1" })
+            <font size="5" color="red" class="control-label col-md-1">*</font>
             <div class="col-md-4">
                 <input id="IpAddress" type="text" name="IpAddress" required class="form-control">
                 @Html.ValidationMessageFor(model => model.IpAddress, "", new { @class = "text-danger" })

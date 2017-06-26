@@ -34,6 +34,16 @@ namespace T_Touch_Central_Web.Controllers
         [Authorize]
         public ActionResult Create()
         {
+            var db = new DB();
+            var maxproductnum = (from t in db.Product select t.product_num).Max();
+            if (maxproductnum != null)
+            {
+                ViewBag.Message = (int.Parse(maxproductnum) + 1).ToString().PadLeft(5,'0');
+            }
+            else
+            {
+                ViewBag.Message = 1;
+            }
             return View();
         }
 

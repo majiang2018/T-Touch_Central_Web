@@ -12,6 +12,46 @@
             @Html.ActionLink("设备管理", "Index","Scale")
         </p>
     </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 text-center">
+        <a href="@Url.Action("Index", "Product")">
+            <img src="~/Image/Product.png"  alt="产品信息" width="110" height="65" />
+        </a>
+        <p>
+            @Html.ActionLink("产品信息", "Index", "Product")
+        </p>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 text-center">
+        <a href="@Url.Action("Index", "Category")">
+            <img src="~/Image/Category.png"  alt="分类信息" width="110" height="65" />
+        </a>
+        <p>
+            @Html.ActionLink("分类信息", "Index", "Category")
+        </p>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 text-center">
+        <a href="@Url.Action("Index", "User")">
+            <img src="~/Image/Users.png"  alt="操作员信息" width="110" height="65" />
+        </a>
+        <p>
+            @Html.ActionLink("操作员信息", "Index", "User")
+        </p>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 text-center">
+        <a href="@Url.Action("Index", "Department")">
+            <img src="~/Image/Department.png"  alt="部门信息" width="110" height="65" />
+        </a>
+        <p>
+            @Html.ActionLink("部门信息", "Index", "Department")
+        </p>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 text-center">
+        <a href="@Url.Action("Index", "Tax")">
+            <img src="~/Image/Tax.png"  alt="税率信息" width="110" height="65" />
+        </a>
+        <p>
+            @Html.ActionLink("税率信息", "Index", "Tax")
+        </p>
+    </div>
     <div class="col-xs-6 col-sm-4 col-md-3 text-center ">
         <img src="~/Image/ChangePrice.png" alt="批量改价" width="110" height="65" />
         <p>批量改价</p>
@@ -24,14 +64,7 @@
         <img src="~/Image/Ui.png" alt="操作界面" width="110" height="65" />
         <p>操作界面</p>
     </div>
-    <div class="col-xs-6 col-sm-4 col-md-3 text-center">
-         <a href="@Url.Action("Index", "Product")">
-            <img src="~/Image/Product.png"  alt="产品信息" width="110" height="65" />
-        </a>
-        <p>
-            @Html.ActionLink("产品信息", "Index", "Product")
-        </p>
-    </div>
+
     <div class="col-xs-6 col-sm-4 col-md-3 text-center">
         <img src="~/Image/Promotion.png" alt="促销管理" width="110" height="65" />
         <p>促销管理</p>
@@ -59,14 +92,6 @@
     <div class="col-xs-6 col-sm-4 col-md-3 text-center">
         <img src="~/Image/Transfer.png" alt="备份还原" width="110" height="65" />
         <p>备份还原</p>
-    </div>
-    <div class="col-xs-6 col-sm-4 col-md-3 text-center">
-        <a href="@Url.Action("Index", "Category")">
-            <img src="~/Image/Category.png"  alt="分类信息" width="110" height="65" />
-        </a>
-        <p>
-            @Html.ActionLink("分类信息", "Index", "Category")
-        </p>
     </div>
 </div>
 <br />

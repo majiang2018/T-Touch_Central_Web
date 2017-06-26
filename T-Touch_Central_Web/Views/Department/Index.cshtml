@@ -1,16 +1,17 @@
-﻿@model IEnumerable<DATA.model.Category>
+﻿@model IEnumerable<DATA.model.Tab_Department>
 @{
-    ViewBag.Title = "分类信息";
+    ViewBag.Title = "部门信息";
 }
-<h2>分类信息</h2>
+
+<h2>部门信息</h2>
 @using (Html.BeginForm())
 {
     <br />
-    @Html.TextBox("CategoryName", "", new { style = "width:280px;", placeholder = "类别名称" })
+    @Html.TextBox("DepartmentName", "", new { style = "width:280px;", placeholder = "部门名" })
     <button id="btn_Search" name="btn_Search" type="submit" class="btn  btn-sm" style="background-color:#2DAAF8;color:white">
         <i class="glyphicon glyphicon-search"></i> 搜索
     </button>
-    <button id="btn_Add" name="btn_Add" type="button" class="btn  btn-sm" style="background-color:#9A7EFF;color:white" onclick="location.href='@Url.Action("Create", "Category")'">
+    <button id="btn_Add" name="btn_Add" type="button" class="btn  btn-sm" style="background-color:#9A7EFF;color:white" onclick="location.href='@Url.Action("Create", "Department")'">
         <i class="glyphicon glyphicon-plus"></i> 添加
     </button>
     <button id="btn_Delete" name="btn_Delete" type="submit" class="btn  btn-sm" style="background-color:#FFB71F;color:white">
@@ -19,62 +20,48 @@
     <button id="btn_DownLoad" name="btn_DownLoad" type="button" class="btn  btn-sm" style="background-color:#11B544;color:white">
         <i class="glyphicon glyphicon-download-alt"></i> 下载
     </button>
-<div class="table-responsive">
-    <table class="table table-striped">
-        <tr>
-            <th style="white-space:nowrap">
-                <input type="checkbox" id="checkedAll" name="checkedAll" />全选
-            </th>
-            <th style="white-space:nowrap">
-                操作
-            </th>
-            <th style="white-space:nowrap">
-                @Html.DisplayName("序号")
-            </th>
-            <th style="white-space:nowrap">
-                @Html.DisplayName("类别名称")
-            </th>
-            <th style="white-space:nowrap">
-                @Html.DisplayName("图片")
-            </th>
-            <th style="white-space:nowrap">
-                @Html.DisplayName("描述")
-            </th>
-            <th style="white-space:nowrap">
-                @Html.DisplayName("顺序")
-            </th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr id="Row-@item.Id">
-                <td style="white-space:nowrap">
-                    <input type="checkbox" id="checkedId" name="checkedId" value="@item.Id" />
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("删除", "Delete", new { id = item.Id })
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.category_num)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.category_name)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.image)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.describ)
-                </td>
-                <td style="white-space:nowrap">
-                    @Html.DisplayFor(modelItem => item.order_index)
-                </td>
-
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <th style="white-space:nowrap">
+                    <input type="checkbox" id="checkedAll" name="checkedAll" />全选
+                </th>
+                <th style="white-space:nowrap">
+                    操作
+                </th>
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("序号")
+                </th>
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("部门名")
+                </th>
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("备注")
+                </th>
             </tr>
-        }
-    </table>
-</div>
+            @foreach (var item in Model)
+            {
+                <tr id="Row-@item._id">
+                    <td style="white-space:nowrap">
+                        <input type="checkbox" id="checkedId" name="checkedId" value="@item._id" />
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.ActionLink("编辑", "Edit", new { id = item._id }) |
+                        @Html.ActionLink("删除", "Delete", new { id = item._id })
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.department_num)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.department_name)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.remark)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
 }
 <div id="dialog" style="overflow: hidden;" />
 <script src="~/Scripts/jquery-ui.js"></script>
@@ -87,7 +74,7 @@
         title: '选择称',
         modal: true,
         open: function (event, ui) {
-            $(this).load('@Url.Action("Scale", "Category")');
+            $(this).load('@Url.Action("Scale", "Department")');
         }
     });
     //表头CheckBox操作全选或取消全选
@@ -114,7 +101,7 @@
             ids= ids.substr(0,ids.length-1);
             if (ids!=null) {
                 $.ajax({
-                    url: "/Category/Delete/" + ids,
+                    url: "/Department/Delete/" + ids,
                     async: false,
                     type: "POST",
                     contentType: "application/x-www-form-urlencoded",

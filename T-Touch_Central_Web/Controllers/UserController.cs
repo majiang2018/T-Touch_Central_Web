@@ -10,35 +10,36 @@ using System.Web.Mvc;
 
 namespace T_Touch_Central_Web.Controllers
 {
-    public class CategoryController : Controller
+    public class UserController : Controller
     {
-        // GET: Category
-        public ActionResult Index(string CategoryName)
+        // GET: User
+        public ActionResult Index(string Username)
         {
             var db = new DB();
-            var sql = from t in db.Category   select t;
-            if (!string.IsNullOrEmpty(CategoryName))
+            var sql = from t in db.Tab_User select t;
+            if (!string.IsNullOrEmpty(Username))
             {
-                sql = sql.Where(s => s.category_name.Contains(CategoryName));
+                sql = sql.Where(s => s.user_name.Contains(Username));
             }
             return View(sql);
         }
 
-        // GET: Category/Details/5
+
+        // GET: User/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Category/Create
+        // GET: User/Create
         [Authorize]
         public ActionResult Create()
         {
             var db = new DB();
-            var maxcategorynum = (from t in db.Category select t.category_num).Max();
-            if (maxcategorynum != null)
+            var maxusernum = (from t in db.Tab_User select t.user_num).Max();
+            if (maxusernum != null)
             {
-                ViewBag.Message = int.Parse(maxcategorynum) + 1;
+                ViewBag.Message = int.Parse(maxusernum) + 1;
             }
             else
             {
@@ -47,9 +48,9 @@ namespace T_Touch_Central_Web.Controllers
             return View();
         }
 
-        // POST: Category/Create
+        // POST: User/Create
         [HttpPost]
-        public ActionResult Create(Category Sql)
+        public ActionResult Create(Tab_User Sql)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +58,7 @@ namespace T_Touch_Central_Web.Controllers
                 {
                     // TODO: Add insert logic here
                     var db = new DB();
-                    db.Category.InsertOnSubmit(Sql);
+                    db.Tab_User.InsertOnSubmit(Sql);
                     db.SubmitChanges();
                     return RedirectToAction("Index");
                 }
@@ -72,16 +73,16 @@ namespace T_Touch_Central_Web.Controllers
             }
         }
 
-        // GET: Category/Edit/5
+        // GET: User/Edit/5
         [Authorize]
         public ActionResult Edit(int id)
         {
             var db = new DB();
-            var Sql = db.Category.SingleOrDefault(x => x.Id == id);
+            var Sql = db.Tab_User.SingleOrDefault(x => x._id == id);
             return View(Sql);
         }
 
-        // POST: Category/Edit/5
+        // POST: User/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -89,11 +90,10 @@ namespace T_Touch_Central_Web.Controllers
             {
                 // TODO: Add update logic here
                 var db = new DB();
-                var Sql = db.Category.SingleOrDefault(x => x.Id == id);
+                var Sql = db.Tab_User.SingleOrDefault(x => x._id == id);
                 UpdateModel(Sql, collection.ToValueProvider());
                 db.SubmitChanges();
                 return RedirectToAction("Index");
-
             }
             catch
             {
@@ -101,16 +101,16 @@ namespace T_Touch_Central_Web.Controllers
             }
         }
 
-        // GET: Category/Delete/5
+        // GET: User/Delete/5
         [Authorize]
         public ActionResult Delete(int id)
         {
             var db = new DB();
-            var Sql = db.Category.SingleOrDefault(x => x.Id == id);
+            var Sql = db.Tab_User.SingleOrDefault(x => x._id == id);
             return View(Sql);
         }
 
-        // POST: Category/Delete/5
+        // POST: User/Delete/5
         [HttpPost]
         public ActionResult Delete(string Id, FormCollection collection)
         {
@@ -122,15 +122,15 @@ namespace T_Touch_Central_Web.Controllers
                 {
                     foreach (var item in Id.Split(',').ToArray())
                     {
-                        var Sql = db.Category.SingleOrDefault(x => x.Id == int.Parse(item));
-                        db.Category.DeleteOnSubmit(Sql);
+                        var Sql = db.Tab_User.SingleOrDefault(x => x._id == int.Parse(item));
+                        db.Tab_User.DeleteOnSubmit(Sql);
                         db.SubmitChanges();
                     }
                 }
                 else
                 {
-                    var Sql = db.Category.SingleOrDefault(x => x.Id == int.Parse(Id));
-                    db.Category.DeleteOnSubmit(Sql);
+                    var Sql = db.Tab_User.SingleOrDefault(x => x._id == int.Parse(Id));
+                    db.Tab_User.DeleteOnSubmit(Sql);
                     db.SubmitChanges();
                 }
                 return RedirectToAction("Index");
@@ -146,29 +146,29 @@ namespace T_Touch_Central_Web.Controllers
             var sql = from t in db.Scales select t;
             return PartialView(sql);
         }
-
         [HttpPost]
         public string DownLoad(string Id, string Ip)
         {
             var db = new DB();
             DataTable dt = new DataTable();
-            string categorys;
+            string users;
             var result = string.Empty;
             var result1 = string.Empty;
             List<string> id = Id.Split(',').ToList();
-            var category = from t in db.Category
-                          where id.Contains(t.Id.ToString())
-                          select new
-                          {
-                              t.category_num,
-                              t.category_name,
-                              t.describ,
-                              t.order_index,
-                              t.image
-                          };
-            dt = Linq.ToDataTable(category);
-            categorys = json.DataTableToJson(dt);
-            if (categorys != "")
+            var user = from t in db.Tab_User
+                           where id.Contains(t._id.ToString())
+                           select new
+                           {
+                               t.user_num,
+                               t.user_name,
+                               t.user_password,
+                               t.user_permission,
+                               t.phone,
+                               t.address
+                           };
+            dt = Linq.ToDataTable(user);
+            users = json.DataTableToJson(dt);
+            if (users != "")
             {
                 foreach (var item in Ip.Split(',').ToArray())
                 {
@@ -185,9 +185,9 @@ namespace T_Touch_Central_Web.Controllers
                         if (reply.Status == IPStatus.Success)
                         {
                             //发送产品
-                            string[] textArray1 = new string[] { "http://", Sql.IpAddress, ":", "1235", "/category" };
+                            string[] textArray1 = new string[] { "http://", Sql.IpAddress, ":", "1235", "/user" };
                             string uri = string.Concat(textArray1);
-                            result1 += HttpHelper.HttpPost(uri, categorys);
+                            result1 += HttpHelper.HttpPost(uri, users);
                             if (result1.Contains("OK"))
                             {
                                 result += Sql.IpAddress + ":下载成功！" + Environment.NewLine;
@@ -208,9 +208,7 @@ namespace T_Touch_Central_Web.Controllers
                     }
                 }
             }
-
             return result;
         }
     }
 }
-

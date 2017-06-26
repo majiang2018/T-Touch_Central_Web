@@ -1,0 +1,49 @@
+﻿@model DATA.model.Tab_Tax
+@{
+    ViewBag.Title = "删除";
+}
+
+<h2>删除</h2>
+
+<h3>您确定要删除吗?</h3>
+
+<div>
+    <h4>税率信息</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        
+        <dt>
+            @Html.DisplayName("序号")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tax_num)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("税率名")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tax_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("税率值")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tax_value)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="删除" class="btn btn-default" /> |
+            @Html.ActionLink("返回", "Index")
+        </div>
+    }
+</div>

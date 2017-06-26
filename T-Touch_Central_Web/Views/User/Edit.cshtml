@@ -1,0 +1,85 @@
+﻿@model DATA.model.Tab_User
+@{
+    ViewBag.Title = "编辑";
+}
+
+<h2>编辑</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    var Permission = new List<SelectListItem>()
+    {
+        new SelectListItem() { Text = "操作员", Value = "0",Selected=true },
+        new SelectListItem() { Text = "管理员", Value = "1" },
+    };
+    <div class="row">
+        <h4>&nbsp;&nbsp;&nbsp;操作员信息</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model._id)
+        <div class="form-group">
+            @Html.Label("序号", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.user_num, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.user_num, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("用户名", htmlAttributes: new { @class = "control-label col-md-1" })
+            <font size="5" color="red" class="control-label col-md-1">*</font>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.user_name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.user_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("密码", htmlAttributes: new { @class = "control-label col-md-1" })
+            <font size="5" color="red" class="control-label col-md-1">*</font>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.user_password, new { htmlAttributes = new { type = "password", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.user_password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("权限", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownList("user_permission", Permission, "--请选择--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.user_permission, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("电话", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("地址", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <input type="submit" value="保存" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("返回", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

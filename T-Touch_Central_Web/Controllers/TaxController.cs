@@ -10,35 +10,35 @@ using System.Web.Mvc;
 
 namespace T_Touch_Central_Web.Controllers
 {
-    public class CategoryController : Controller
+    public class TaxController : Controller
     {
-        // GET: Category
-        public ActionResult Index(string CategoryName)
+        // GET: Tax
+        public ActionResult Index(string TaxName)
         {
             var db = new DB();
-            var sql = from t in db.Category   select t;
-            if (!string.IsNullOrEmpty(CategoryName))
+            var sql = from t in db.Tab_Tax select t;
+            if (!string.IsNullOrEmpty(TaxName))
             {
-                sql = sql.Where(s => s.category_name.Contains(CategoryName));
+                sql = sql.Where(s => s.tax_name.Contains(TaxName));
             }
             return View(sql);
         }
 
-        // GET: Category/Details/5
+        // GET: Tax/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Category/Create
+        // GET: Tax/Create
         [Authorize]
         public ActionResult Create()
         {
             var db = new DB();
-            var maxcategorynum = (from t in db.Category select t.category_num).Max();
-            if (maxcategorynum != null)
+            var maxtaxnum = (from t in db.Tab_Tax select t.tax_num).Max();
+            if (maxtaxnum != null)
             {
-                ViewBag.Message = int.Parse(maxcategorynum) + 1;
+                ViewBag.Message = int.Parse(maxtaxnum) + 1;
             }
             else
             {
@@ -47,53 +47,17 @@ namespace T_Touch_Central_Web.Controllers
             return View();
         }
 
-        // POST: Category/Create
+        // POST: Tax/Create
         [HttpPost]
-        public ActionResult Create(Category Sql)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    // TODO: Add insert logic here
-                    var db = new DB();
-                    db.Category.InsertOnSubmit(Sql);
-                    db.SubmitChanges();
-                    return RedirectToAction("Index");
-                }
-                catch
-                {
-                    return View(Sql);
-                }
-            }
-            else
-            {
-                return View(Sql);
-            }
-        }
-
-        // GET: Category/Edit/5
-        [Authorize]
-        public ActionResult Edit(int id)
-        {
-            var db = new DB();
-            var Sql = db.Category.SingleOrDefault(x => x.Id == id);
-            return View(Sql);
-        }
-
-        // POST: Category/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Create(Tab_Tax Sql)
         {
             try
             {
-                // TODO: Add update logic here
+                // TODO: Add insert logic here
                 var db = new DB();
-                var Sql = db.Category.SingleOrDefault(x => x.Id == id);
-                UpdateModel(Sql, collection.ToValueProvider());
+                db.Tab_Tax.InsertOnSubmit(Sql);
                 db.SubmitChanges();
                 return RedirectToAction("Index");
-
             }
             catch
             {
@@ -101,16 +65,44 @@ namespace T_Touch_Central_Web.Controllers
             }
         }
 
-        // GET: Category/Delete/5
+        // GET: Tax/Edit/5
+        [Authorize]
+        public ActionResult Edit(int id)
+        {
+            var db = new DB();
+            var Sql = db.Tab_Tax.SingleOrDefault(x => x._id == id);
+            return View(Sql);
+        }
+
+        // POST: Tax/Edit/5
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add update logic here
+                var db = new DB();
+                var Sql = db.Tab_Tax.SingleOrDefault(x => x._id == id);
+                UpdateModel(Sql, collection.ToValueProvider());
+                db.SubmitChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: Tax/Delete/5
         [Authorize]
         public ActionResult Delete(int id)
         {
             var db = new DB();
-            var Sql = db.Category.SingleOrDefault(x => x.Id == id);
+            var Sql = db.Tab_Tax.SingleOrDefault(x => x._id == id);
             return View(Sql);
         }
 
-        // POST: Category/Delete/5
+        // POST: Tax/Delete/5
         [HttpPost]
         public ActionResult Delete(string Id, FormCollection collection)
         {
@@ -122,15 +114,15 @@ namespace T_Touch_Central_Web.Controllers
                 {
                     foreach (var item in Id.Split(',').ToArray())
                     {
-                        var Sql = db.Category.SingleOrDefault(x => x.Id == int.Parse(item));
-                        db.Category.DeleteOnSubmit(Sql);
+                        var Sql = db.Tab_Tax.SingleOrDefault(x => x._id == int.Parse(item));
+                        db.Tab_Tax.DeleteOnSubmit(Sql);
                         db.SubmitChanges();
                     }
                 }
                 else
                 {
-                    var Sql = db.Category.SingleOrDefault(x => x.Id == int.Parse(Id));
-                    db.Category.DeleteOnSubmit(Sql);
+                    var Sql = db.Tab_Tax.SingleOrDefault(x => x._id == int.Parse(Id));
+                    db.Tab_Tax.DeleteOnSubmit(Sql);
                     db.SubmitChanges();
                 }
                 return RedirectToAction("Index");
@@ -140,35 +132,26 @@ namespace T_Touch_Central_Web.Controllers
                 return View();
             }
         }
-        public ActionResult Scale()
-        {
-            var db = new DB();
-            var sql = from t in db.Scales select t;
-            return PartialView(sql);
-        }
-
         [HttpPost]
         public string DownLoad(string Id, string Ip)
         {
             var db = new DB();
             DataTable dt = new DataTable();
-            string categorys;
+            string taxs;
             var result = string.Empty;
             var result1 = string.Empty;
             List<string> id = Id.Split(',').ToList();
-            var category = from t in db.Category
-                          where id.Contains(t.Id.ToString())
-                          select new
-                          {
-                              t.category_num,
-                              t.category_name,
-                              t.describ,
-                              t.order_index,
-                              t.image
-                          };
-            dt = Linq.ToDataTable(category);
-            categorys = json.DataTableToJson(dt);
-            if (categorys != "")
+            var tax = from t in db.Tab_Tax
+                             where id.Contains(t._id.ToString())
+                             select new
+                             {
+                                 t.tax_num,
+                                 t.tax_name,
+                                 t.tax_value
+                             };
+            dt = Linq.ToDataTable(tax);
+            taxs = json.DataTableToJson(dt);
+            if (taxs != "")
             {
                 foreach (var item in Ip.Split(',').ToArray())
                 {
@@ -185,9 +168,9 @@ namespace T_Touch_Central_Web.Controllers
                         if (reply.Status == IPStatus.Success)
                         {
                             //发送产品
-                            string[] textArray1 = new string[] { "http://", Sql.IpAddress, ":", "1235", "/category" };
+                            string[] textArray1 = new string[] { "http://", Sql.IpAddress, ":", "1235", "/tax" };
                             string uri = string.Concat(textArray1);
-                            result1 += HttpHelper.HttpPost(uri, categorys);
+                            result1 += HttpHelper.HttpPost(uri, taxs);
                             if (result1.Contains("OK"))
                             {
                                 result += Sql.IpAddress + ":下载成功！" + Environment.NewLine;
@@ -213,4 +196,3 @@ namespace T_Touch_Central_Web.Controllers
         }
     }
 }
-
