@@ -42,7 +42,7 @@
 
     #left {
         width: auto;
-        height: 715px;
+        height: 720px;
         margin: 0;
         padding: 0;
         background-color: #EDF5FD;
@@ -52,7 +52,7 @@
 
     #content {
         width: 88%;
-        height: 710px;
+        height: 720px;
         margin: 0;
         padding: 0;
         background-color: #D3D3D3;
@@ -187,6 +187,15 @@
             minHeight: 8,
             minWidth: 8
         });
+        document.getElementById("header").style.width = document.getElementById("left").offsetWidth + document.getElementById("content").offsetWidth + "px";
+        document.getElementById("toolbar").style.width = document.getElementById("left").offsetWidth + document.getElementById("content").offsetWidth + "px";
+        document.getElementById("toolbar1").style.width = document.getElementById("left").offsetWidth + document.getElementById("content").offsetWidth + "px";
+
+    });
+    $(window).resize(function () {
+        document.getElementById("header").style.width = document.getElementById("left").offsetWidth + document.getElementById("content").offsetWidth + "px";
+        document.getElementById("toolbar").style.width = document.getElementById("left").offsetWidth + document.getElementById("content").offsetWidth + "px";
+        document.getElementById("toolbar1").style.width = document.getElementById("left").offsetWidth + document.getElementById("content").offsetWidth + "px";
     });
 </script>
 
