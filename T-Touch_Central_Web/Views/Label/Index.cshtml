@@ -1,0 +1,192 @@
+﻿@{
+    ViewBag.Title = "标签设计";
+}
+
+<h2>标签设计</h2>
+
+<style>
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        padding: 0;
+        background-color: white;
+    }
+
+    #header {
+        width: 100%;
+        height: 10%;
+        margin: 0;
+        padding: 0;
+        background-color: #DFE9F5;
+        color: black;
+    }
+
+    #toolbar {
+        width: 100%;
+        height: 10%;
+        margin: 0;
+        padding: 0;
+        background-color: #EDF5FD;
+        color: black;
+    }
+
+    #toolbar1 {
+        width: 100%;
+        height: 10%;
+        margin: 0;
+        padding: 0;
+        background-color: #EDF5FD;
+        color: black;
+    }
+
+    #left {
+        width: auto;
+        height: 715px;
+        margin: 0;
+        padding: 0;
+        background-color: #EDF5FD;
+        line-height: 40px;
+        float: left;
+    }
+
+    #content {
+        width: 88%;
+        height: 710px;
+        margin: 0;
+        padding: 0;
+        background-color: #D3D3D3;
+        float: left;
+    }
+
+    #content1 {
+        width: 200px;
+        height: 160px;
+        background-color: white;
+    }
+</style>
+
+<body>
+    <div id="header">
+        文件&nbsp;&nbsp;&nbsp;
+        编辑&nbsp;&nbsp;&nbsp;
+        工具&nbsp;&nbsp;&nbsp;
+        帮助&nbsp;&nbsp;&nbsp;
+        标签&nbsp;&nbsp;&nbsp;
+    </div>
+
+    <div id="toolbar">
+        <button type="button" class="btn btn-sm" style="background-color:#EDF5FD;color:#3A3A3A;font-size: 13px">
+            <i class="glyphicon glyphicon-file"></i>
+        </button>
+        <button type="button" class="btn btn-sm" style="background-color:#EDF5FD;color:#D3A35B;font-size: 13px">
+            <i class="glyphicon glyphicon-folder-open"></i>
+        </button>
+        <button type="button" class="btn btn-sm" style="background-color:#EDF5FD;color:#00539D;font-size: 13px">
+            <i class="glyphicon glyphicon-floppy-disk"></i>
+        </button>
+        <button type="button" class="btn btn-sm" style="background-color:#EDF5FD;color:#424242;font-size: 13px">
+            <i class="glyphicon glyphicon-print"></i>
+        </button>
+        <button type="button" class="btn btn-sm" style="background-color:#EDF5FD;color:#317A2E;font-size: 13px">
+            <i class="glyphicon glyphicon-download-alt"></i>
+        </button>
+        <button type="button" class="btn btn-sm" style="background-color:#EDF5FD;color:#00539D;font-size: 13px">
+            <i class="glyphicon glyphicon-edit"></i>
+        </button>
+        <button type="button" class="btn btn-sm" style="background-color:#EDF5FD;color:#0000FE;font-size: 13px">
+            <i class="glyphicon glyphicon-arrow-left"></i>
+        </button>
+        <button type="button" class="btn btn-sm" style="background-color:#EDF5FD;color:#0000FE;font-size: 13px">
+            <i class="glyphicon glyphicon-arrow-right"></i>
+        </button>
+        <button type="button" class="btn btn-sm" style="background-color:#EDF5FD;color:#0000FE;font-size: 13px">
+            <i class="glyphicon glyphicon-arrow-up"></i>
+        </button>
+        <button type="button" class="btn btn-sm" style="background-color:#EDF5FD;color:#0000FE;font-size: 13px">
+            <i class="glyphicon glyphicon-arrow-down"></i>
+        </button>
+    </div>
+    <div id="toolbar1" class="row">
+        <label>
+            标签模板
+        </label>
+        <select style="width:265px;height:25px">
+            <option>50X40</option>
+            <option>50X54</option>
+            <option>50X68</option>
+            <option>56X35</option>
+            <option>56X53</option>
+            <option>60X30</option>
+            <option>60X32</option>
+            <option>60X40</option>
+            <option>60X42</option>
+            <option>60X44</option>
+            <option>60X45</option>
+            <option>60X50</option>
+            <option>60X51</option>
+            <option>60X55</option>
+            <option>60X60</option>
+            <option>60X63</option>
+            <option>60X80</option>
+            <option>60X81</option>
+            <option>60X88</option>
+        </select>
+        <label>
+            标签名称
+        </label>
+        <input type="text" id="name" style="width:265px;height:25px">
+        <button type="button" class="btn btn-default btn-sm">
+            条码格式
+        </button>
+        <img src="~/Image/LeftAlign.png"  alt="Left" width="32" height="32" />
+        <img src="~/Image/RightAlign.png"  alt="Left" width="32" height="32" />
+        <img src="~/Image/TopAlign.png"  alt="Left" width="32" height="32" />
+        <img src="~/Image/BottomAlign.png"  alt="Left" width="32" height="32" />
+        <img src="~/Image/CenterAlign.png"  alt="Left" width="32" height="32" />
+
+    </div>
+    <div id="left">
+        <div>
+            <img src="~/Image/BarCode.png"  alt="条码" width="32" height="32" />
+        </div>
+        <img src="~/Image/Text.png"  alt="文本" width="32" height="32" />
+        <div>
+            <img src="~/Image/Shopping.png"  alt="商品" width="32" height="32" />
+        </div>
+        <img src="~/Image/Client1.png"  alt="客户" width="32" height="32" />
+        <div>
+            <img src="~/Image/Price1.png"  alt="价格" width="32" height="32" />
+        </div>
+        <div>
+            <img src="~/Image/Weight.png"  alt="重量" width="32" height="32" />
+        </div>
+        <img src="~/Image/TextLarge.png" alt="标题" width="32" height="32" />
+        <div>
+            <img src="~/Image/Question.png"  alt="备注" width="32" height="32" />
+        </div>
+        <img src="~/Image/Line.png"  alt="直线" width="32" height="32" />
+        <div>
+            <img src="~/Image/image3.png"  alt="图片" width="32" height="32" />
+        </div>
+        <div>
+            <img src="~/Image/Trademark.png" alt="商标" width="32" height="32" />
+        </div>
+    </div>
+
+    <div id="content">
+        <div id="content1">
+        </div>
+    </div>
+</body>
+<script>
+    $(function () {
+        $("#content1").resizable({
+            maxHeight: 704,
+            maxWidth: 480,
+            minHeight: 8,
+            minWidth: 8
+        });
+    });
+</script>
+

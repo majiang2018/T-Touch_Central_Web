@@ -182,6 +182,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LabelController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ScaleController.cs" />
@@ -242,22 +243,39 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\BarCode.png" />
     <Content Include="Image\Billboards.png" />
+    <Content Include="Image\BottomAlign.png" />
     <Content Include="Image\Category.png" />
+    <Content Include="Image\CenterAlign.png" />
     <Content Include="Image\ChangePrice.png" />
+    <Content Include="Image\Client1.png" />
+    <Content Include="Image\Date.png" />
     <Content Include="Image\Department.png" />
     <Content Include="Image\Download.png" />
     <Content Include="Image\Image.png" />
+    <Content Include="Image\image3.png" />
     <Content Include="Image\Label.png" />
+    <Content Include="Image\LeftAlign.png" />
+    <Content Include="Image\Line.png" />
+    <Content Include="Image\Price1.png" />
     <Content Include="Image\PriceTag.png" />
     <Content Include="Image\Product.png" />
     <Content Include="Image\Promotion.png" />
+    <Content Include="Image\Question.png" />
+    <Content Include="Image\RightAlign.png" />
     <Content Include="Image\Scale.png" />
     <Content Include="Image\Setting.png" />
+    <Content Include="Image\Shopping.png" />
     <Content Include="Image\Tax.png" />
+    <Content Include="Image\Text.png" />
+    <Content Include="Image\TextLarge.png" />
+    <Content Include="Image\TopAlign.png" />
+    <Content Include="Image\Trademark.png" />
     <Content Include="Image\Transfer.png" />
     <Content Include="Image\Ui.png" />
     <Content Include="Image\Users.png" />
+    <Content Include="Image\Weight.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Models\Data.dbml">
@@ -347,6 +365,7 @@
     <Content Include="Views\Tax\Create.cshtml" />
     <Content Include="Views\Tax\Edit.cshtml" />
     <Content Include="Views\Tax\Delete.cshtml" />
+    <Content Include="Views\Label\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

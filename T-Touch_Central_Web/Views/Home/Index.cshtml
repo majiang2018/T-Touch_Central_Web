@@ -60,10 +60,16 @@
         <img src="~/Image/Download.png" alt="数据下发" width="110" height="65" />
         <p>数据下发</p>
     </div>
+
     <div class="col-xs-6 col-sm-4 col-md-3 text-center">
-        <img src="~/Image/Label.png" alt="标签设计" width="110" height="65" />
-        <p>标签设计</p>
+        <a href="@Url.Action("Index", "Label")">
+            <img src="~/Image/Label.png"  alt="标签设计" width="110" height="65" />
+        </a>
+        <p>
+            @Html.ActionLink("标签设计", "Index", "Label")
+        </p>
     </div>
+    
     <div class="col-xs-6 col-sm-4 col-md-3 text-center">
         <img src="~/Image/Ui.png" alt="操作界面" width="110" height="65" />
         <p>操作界面</p>
