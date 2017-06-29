@@ -2,7 +2,15 @@
     ViewBag.Title = "主页";
 }
 <br />
-
+<style>
+    .gray {
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        filter: grayscale(100%);
+        filter: gray;
+    }
+</style>
 <div class="row ">
     <div class="col-xs-6 col-sm-4 col-md-3 text-center ">
         <a href="@Url.Action("Index", "Scale")">
@@ -53,49 +61,47 @@
         </p>
     </div>
     <div class="col-xs-6 col-sm-4 col-md-3 text-center ">
-        <img src="~/Image/ChangePrice.png" alt="批量改价" width="110" height="65" />
+        <img src="~/Image/ChangePrice.png" alt="批量改价" width="110" height="65" class="gray" />
         <p>批量改价</p>
     </div>
     <div class="col-xs-6 col-sm-4 col-md-3 text-center">
-        <img src="~/Image/Download.png" alt="数据下发" width="110" height="65" />
+        <img src="~/Image/Download.png" alt="数据下发" width="110" height="65" class="gray" />
         <p>数据下发</p>
     </div>
-
     <div class="col-xs-6 col-sm-4 col-md-3 text-center">
-        <a href="@Url.Action("Index", "Label")">
+        <a href="@Url.Action("Index", "LabelDesign")">
             <img src="~/Image/Label.png"  alt="标签设计" width="110" height="65" />
         </a>
         <p>
-            @Html.ActionLink("标签设计", "Index", "Label")
+            @Html.ActionLink("标签设计", "Index", "LabelDesign")
         </p>
     </div>
-    
     <div class="col-xs-6 col-sm-4 col-md-3 text-center">
-        <img src="~/Image/Ui.png" alt="操作界面" width="110" height="65" />
+        <img src="~/Image/Ui.png" alt="操作界面" width="110" height="65" class="gray" />
         <p>操作界面</p>
     </div>
     <div class="col-xs-6 col-sm-4 col-md-3 text-center">
-        <img src="~/Image/Billboards.png" alt="价格看板" width="110" height="65" />
+        <img src="~/Image/Billboards.png" alt="价格看板" width="110" height="65" class="gray" />
         <p>价格看板</p>
     </div>
     <div class="col-xs-6 col-sm-4 col-md-3 text-center">
-        <img src="~/Image/PriceTag.png" alt="电子价签" width="110" height="65" />
+        <img src="~/Image/PriceTag.png" alt="电子价签" width="110" height="65" class="gray" />
         <p>电子价签</p>
     </div>
     <div class="col-xs-6 col-sm-4 col-md-3 text-center">
-        <img src="~/Image/Setting.png" alt="基本参数设置" width="110" height="65" />
+        <img src="~/Image/Setting.png" alt="基本参数设置" width="110" height="65" class="gray" />
         <p>基本参数设置</p>
     </div>
     <div class="col-xs-6 col-sm-4 col-md-3 text-center">
-        <img src="~/Image/Image.png" alt="发送文件" width="110" height="65" />
+        <img src="~/Image/Image.png" alt="发送文件" width="110" height="65" class="gray" />
         <p>发送文件</p>
     </div>
     <div class="col-xs-6 col-sm-4 col-md-3 text-center">
-        <img src="~/Image/Transfer.png" alt="备份还原" width="110" height="65" />
+        <img src="~/Image/Transfer.png" alt="备份还原" width="110" height="65" class="gray" />
         <p>备份还原</p>
     </div>
     <div class="col-xs-6 col-sm-4 col-md-3 text-center">
-        <img src="~/Image/Promotion.png" alt="促销管理" width="110" height="65" />
+        <img src="~/Image/Promotion.png" alt="促销管理" width="110" height="65" class="gray" />
         <p>促销管理</p>
     </div>
 </div>
