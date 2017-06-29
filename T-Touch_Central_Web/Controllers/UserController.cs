@@ -21,7 +21,7 @@ namespace T_Touch_Central_Web.Controllers
             {
                 sql = sql.Where(s => s.user_name.Contains(Username));
             }
-            return View(sql.OrderBy(s => s.user_num).ToPagedList(page ?? 1, 8));
+            return View(sql.OrderBy(s => s.user_num).ToPagedList(page ?? 1, 7));
         }
 
 

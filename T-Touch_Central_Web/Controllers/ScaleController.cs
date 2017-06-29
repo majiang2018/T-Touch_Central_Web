@@ -42,7 +42,7 @@ namespace T_Touch_Central_Web.Controllers
             {
                 sql = sql.Where(s => s.Pos_No.Contains(ScaleNo));
             }
-            return View(sql.OrderBy(s => s.Pos_No).ToPagedList(page ?? 1, 8));
+            return View(sql.OrderBy(s => s.Pos_No).ToPagedList(page ?? 1, 7));
         }
 
         // GET: Scale/Details/5

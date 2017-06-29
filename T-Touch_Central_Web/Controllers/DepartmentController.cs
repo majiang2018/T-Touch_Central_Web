@@ -21,7 +21,7 @@ namespace T_Touch_Central_Web.Controllers
             {
                 sql = sql.Where(s => s.department_name.Contains(DepartmentName));
             }
-            return View(sql.OrderBy(s => s.department_num).ToPagedList(page ?? 1, 8));
+            return View(sql.OrderBy(s => s.department_num).ToPagedList(page ?? 1,7));
         }
 
         // GET: Department/Details/5

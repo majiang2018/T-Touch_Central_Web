@@ -21,7 +21,7 @@ namespace T_Touch_Central_Web.Controllers
             {
                 sql = sql.Where(s => s.product_num.Contains(ProductNumber));
             }
-            return View(sql.OrderBy(s => s.product_num).ToPagedList(page ?? 1, 8));
+            return View(sql.OrderBy(s => s.product_num).ToPagedList(page ?? 1, 7));
         }
 
         // GET: Product/Details/5

@@ -23,7 +23,7 @@ namespace T_Touch_Central_Web.Controllers
             {
                 sql = sql.Where(s => s.category_name.Contains(CategoryName));
             }
-            return View(sql.OrderBy(s=>s.category_num).ToPagedList(page??1,8));
+            return View(sql.OrderBy(s=>s.category_num).ToPagedList(page??1,7));
         }
 
         // GET: Category/Details/5

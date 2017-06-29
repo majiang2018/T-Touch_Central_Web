@@ -21,7 +21,7 @@ namespace T_Touch_Central_Web.Controllers
             {
                 sql = sql.Where(s => s.tax_name.Contains(TaxName));
             }
-            return View(sql.OrderBy(s => s.tax_num).ToPagedList(page ?? 1, 8));
+            return View(sql.OrderBy(s => s.tax_num).ToPagedList(page ?? 1, 7));
         }
 
         // GET: Tax/Details/5
