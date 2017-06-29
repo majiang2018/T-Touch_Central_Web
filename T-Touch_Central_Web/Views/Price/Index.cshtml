@@ -4,7 +4,7 @@
     ViewBag.Title = "批量改价";
 }
 <h2>批量改价</h2>
-@using (Html.BeginForm())
+@using (Html.BeginForm("Index", "Price"))
 {
     <br />
     @Html.TextBox("ProductNumber", "", new { style = "width:280px;", placeholder = "商品编号" })
