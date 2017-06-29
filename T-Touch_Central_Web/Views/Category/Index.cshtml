@@ -1,4 +1,5 @@
-﻿@model IEnumerable<DATA.model.Category>
+﻿@using PagedList.Mvc ;
+@model PagedList.IPagedList<DATA.model.Category>
 @{
     ViewBag.Title = "分类信息";
 }
@@ -76,6 +77,10 @@
     </table>
 </div>
 }
+
+第@(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)页，共 @Model.PageCount 页
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
 <div id="dialog" style="overflow: hidden;" />
 <script src="~/Scripts/jquery-ui.js"></script>
 <script type="text/JavaScript">

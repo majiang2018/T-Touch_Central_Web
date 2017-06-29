@@ -7,13 +7,13 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Web.Mvc;
-
+using PagedList;
 namespace T_Touch_Central_Web.Controllers
 {
     public class PriceController : Controller
     {
         // GET: Price
-        public ActionResult Index(string ProductNumber)
+        public ActionResult Index(int? page, string ProductNumber)
         {
             var db = new DB();
             var sql = from t in db.Product select t;
@@ -21,7 +21,7 @@ namespace T_Touch_Central_Web.Controllers
             {
                 sql = sql.Where(s => s.product_num.Contains(ProductNumber));
             }
-            return View(sql);
+            return View(sql.OrderBy(s => s.product_num).ToPagedList(page ?? 1, 8));
         }
 
         // GET: Price/Details/5

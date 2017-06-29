@@ -1,5 +1,6 @@
 ﻿<div id="content">
-    @model IEnumerable<DATA.model.Scales>
+    @using PagedList.Mvc ;
+    @model PagedList.IPagedList<DATA.model.Scales>
     @{
         ViewBag.Title = "设备管理";
     }
@@ -109,6 +110,10 @@
         </div>
 
                                     }
+
+    第@(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)页，共 @Model.PageCount 页
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
     <hr />
     <footer>
         <p>&copy; @DateTime.Now.Year - Tscale</p>

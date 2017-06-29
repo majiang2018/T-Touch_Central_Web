@@ -7,13 +7,13 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Web.Mvc;
-
+using PagedList;
 namespace T_Touch_Central_Web.Controllers
 {
     public class TaxController : Controller
     {
         // GET: Tax
-        public ActionResult Index(string TaxName)
+        public ActionResult Index(int? page, string TaxName)
         {
             var db = new DB();
             var sql = from t in db.Tab_Tax select t;
@@ -21,7 +21,7 @@ namespace T_Touch_Central_Web.Controllers
             {
                 sql = sql.Where(s => s.tax_name.Contains(TaxName));
             }
-            return View(sql);
+            return View(sql.OrderBy(s => s.tax_num).ToPagedList(page ?? 1, 8));
         }
 
         // GET: Tax/Details/5

@@ -9,13 +9,13 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-
+using PagedList;
 namespace T_Touch_Central_Web.Controllers
 {
     public class CategoryController : Controller
     {
         // GET: Category
-        public ActionResult Index(string CategoryName)
+        public ActionResult Index(int? page,string CategoryName)
         {
             var db = new DB();
             var sql = from t in db.Category   select t;
@@ -23,7 +23,7 @@ namespace T_Touch_Central_Web.Controllers
             {
                 sql = sql.Where(s => s.category_name.Contains(CategoryName));
             }
-            return View(sql);
+            return View(sql.OrderBy(s=>s.category_num).ToPagedList(page??1,8));
         }
 
         // GET: Category/Details/5

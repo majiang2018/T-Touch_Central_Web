@@ -7,13 +7,13 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Web.Mvc;
-
+using PagedList;
 namespace T_Touch_Central_Web.Controllers
 {
     public class UserController : Controller
     {
         // GET: User
-        public ActionResult Index(string Username)
+        public ActionResult Index(int? page, string Username)
         {
             var db = new DB();
             var sql = from t in db.Tab_User select t;
@@ -21,7 +21,7 @@ namespace T_Touch_Central_Web.Controllers
             {
                 sql = sql.Where(s => s.user_name.Contains(Username));
             }
-            return View(sql);
+            return View(sql.OrderBy(s => s.user_num).ToPagedList(page ?? 1, 8));
         }
 
 

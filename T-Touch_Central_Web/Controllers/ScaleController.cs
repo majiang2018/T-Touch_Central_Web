@@ -7,13 +7,13 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-
+using PagedList;
 namespace T_Touch_Central_Web.Controllers
 {
     public class ScaleController : Controller
     {
         // GET: Scale
-        public ActionResult Index(string ScaleNo)
+        public ActionResult Index(int? page, string ScaleNo)
         {
             var db = new DB();
             var ip = from t in db.Scales select new { t.Id, t.IpAddress };
@@ -42,7 +42,7 @@ namespace T_Touch_Central_Web.Controllers
             {
                 sql = sql.Where(s => s.Pos_No.Contains(ScaleNo));
             }
-            return View(sql);
+            return View(sql.OrderBy(s => s.Pos_No).ToPagedList(page ?? 1, 8));
         }
 
         // GET: Scale/Details/5

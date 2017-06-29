@@ -7,13 +7,13 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Web.Mvc;
-
+using PagedList;
 namespace T_Touch_Central_Web.Controllers
 {
     public class DepartmentController : Controller
     {
         // GET: Department
-        public ActionResult Index(string DepartmentName)
+        public ActionResult Index(int? page, string DepartmentName)
         {
             var db = new DB();
             var sql = from t in db.Tab_Department select t;
@@ -21,7 +21,7 @@ namespace T_Touch_Central_Web.Controllers
             {
                 sql = sql.Where(s => s.department_name.Contains(DepartmentName));
             }
-            return View(sql);
+            return View(sql.OrderBy(s => s.department_num).ToPagedList(page ?? 1, 8));
         }
 
         // GET: Department/Details/5
