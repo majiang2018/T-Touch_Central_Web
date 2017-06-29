@@ -147,7 +147,8 @@ namespace T_Touch_Central_Web.Controllers
                              {
                                  t.tax_num,
                                  t.tax_name,
-                                 t.tax_value
+                                 t.tax_value,
+                                 t.tax_type
                              };
             dt = Linq.ToDataTable(tax);
             taxs = json.DataTableToJson(dt);
