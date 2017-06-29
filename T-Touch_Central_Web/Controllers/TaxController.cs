@@ -132,6 +132,12 @@ namespace T_Touch_Central_Web.Controllers
                 return View();
             }
         }
+        public ActionResult Scale()
+        {
+            var db = new DB();
+            var sql = from t in db.Scales select t;
+            return PartialView(sql);
+        }
         [HttpPost]
         public string DownLoad(string Id, string Ip)
         {
