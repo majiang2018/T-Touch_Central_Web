@@ -60,9 +60,13 @@
             @Html.ActionLink("税率信息", "Index", "Tax")
         </p>
     </div>
-    <div class="col-xs-6 col-sm-4 col-md-3 text-center ">
-        <img src="~/Image/ChangePrice.png" alt="批量改价" width="110" height="65" class="gray" />
-        <p>批量改价</p>
+    <div class="col-xs-6 col-sm-4 col-md-3 text-center">
+        <a href="@Url.Action("Index", "Price")">
+            <img src="~/Image/ChangePrice.png"  alt="批量改价" width="110" height="65" />
+        </a>
+        <p>
+            @Html.ActionLink("批量改价", "Index", "Price")
+        </p>
     </div>
     <div class="col-xs-6 col-sm-4 col-md-3 text-center">
         <img src="~/Image/Download.png" alt="数据下发" width="110" height="65" class="gray" />

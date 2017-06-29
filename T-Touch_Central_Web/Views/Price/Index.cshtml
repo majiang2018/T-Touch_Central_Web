@@ -1,0 +1,152 @@
+﻿@model IEnumerable<DATA.model.Product>
+@{
+    ViewBag.Title = "批量改价";
+}
+<h2>批量改价</h2>
+@using (Html.BeginForm())
+{
+    <br />
+    @Html.TextBox("ProductNumber", "", new { style = "width:280px;", placeholder = "商品编号" })
+    <button id="btn_Search" name="btn_Search" type="submit" class="btn  btn-sm" style="background-color:#2DAAF8;color:white">
+        <i class="glyphicon glyphicon-search"></i> 搜索
+    </button>
+    <button id="btn_Save" name="btn_Save" type="button" class="btn  btn-sm" style="background-color:#FE7B66;color:white">
+        <i class="glyphicon glyphicon-floppy-disk"></i> 保存
+    </button>
+    <button id="btn_DownLoad" name="btn_DownLoad" type="button" class="btn  btn-sm" style="background-color:#11B544;color:white">
+        <i class="glyphicon glyphicon-download-alt"></i> 下载
+    </button>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <th style="white-space:nowrap">
+                    <input type="checkbox" id="checkedAll" name="checkedAll" />全选
+                </th>
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("商品编号")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("商品名称")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("价格")
+                </th>
+
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("销售价格")
+                </th>
+            </tr>
+            @foreach (var item in Model)
+                {
+                <tr id="Row-@item.Id">
+                    <td style="white-space:nowrap">
+                        <input type="checkbox" id="checkedId" name="checkedId" value="@item.Id" />
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.product_num)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.product_name)
+                    </td>
+                    <td style="white-space:nowrap">
+                        <input type="text" id="price-@item.Id" name="price-@item.Id" required value="@item.price" />
+                    </td>
+                    <td style="white-space:nowrap">
+                        <input type="text" id="pricelowest-@item.Id" name="pricelowest-@item.Id" required value="@item.price_lowest" />
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}
+<div id="dialog" style="overflow: hidden;" />
+<script src="~/Scripts/jquery-ui.js"></script>
+<script type="text/JavaScript">
+    //对话框
+    $('#dialog').dialog({
+        autoOpen: false,
+        width: 500,
+        resizable: false,
+        title: '选择称',
+        modal: true,
+        open: function (event, ui) {
+            $(this).load('@Url.Action("Scale", "Price")');
+        }
+    });
+    //表头CheckBox操作全选或取消全选
+    $("#checkedAll").click(function () {
+        var ischecked = this.checked;
+        $("input:checkbox[name='checkedId']").each(function () {
+            this.checked = ischecked;
+        });
+    });
+
+    $("#btn_Save").click(function () {
+        //确定至少选择一项
+        if ($("[type='checkbox']:checked").length == 0) {
+            alert("请选择一项保存！");
+        }
+            //批量保存
+        else {
+            var ids = "";
+            var prices = "";
+            var pricelowests = "";
+            $("input[name='checkedId']:checked").each(function () {
+                var id = $(this).attr("value");
+                var price = $('input[id=price-' + id + ']').val();
+                var pricelowest = $('input[id=pricelowest-' + id + ']').val();
+                if (ids != null) {
+                    ids += id + ",";
+                    prices += price + ",";
+                    pricelowests += pricelowest + ",";
+                }
+
+            });
+
+            ids = ids.substr(0, ids.length - 1);
+            prices = prices.substr(0, prices.length - 1);
+            pricelowests = pricelowests.substr(0, pricelowests.length - 1);
+
+            if (ids != null) {
+                $.ajax({
+                    url: "/Price/Edit/",
+                    data: {
+                        Id: ids,
+                        Price: prices,
+                        PriceLowest: pricelowests
+                    },
+                    async: false,
+                    type: "POST",
+                    contentType: "application/x-www-form-urlencoded",
+                    //调用出错执行的函数
+                    error: function () {
+                        alert("保存失败！");
+                    }
+                });
+            }
+            alert("保存成功！");
+        }
+    });
+    $("#btn_DownLoad").click(function () {
+        //确定至少选择一项
+        if ($("[type='checkbox']:checked").length == 0) {
+            alert("请选择一项下载！");
+        }
+            //下载到称
+        else {
+            var ids = "";
+            $("[type='checkbox']:checked").each(function () {
+                var id = $(this).attr("value");
+                if (id != null) {
+                    ids += id + ",";
+                }
+            });
+            ids = ids.substr(0, ids.length - 1);
+            if (ids != null) {
+                $('#dialog').data("Id", ids).dialog('open');
+            }
+        }
+    });
+</script>
