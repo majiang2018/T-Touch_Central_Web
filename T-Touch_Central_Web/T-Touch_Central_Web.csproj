@@ -189,6 +189,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LabelController.cs" />
     <Compile Include="Controllers\LabelDesignController.cs" />
@@ -380,6 +381,8 @@
     <Content Include="Views\LabelDesign\Index.cshtml" />
     <Content Include="Views\Price\Index.cshtml" />
     <Content Include="Views\Price\Scale.cshtml" />
+    <Content Include="Views\Download\Index.cshtml" />
+    <Content Include="Views\Download\Scale.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

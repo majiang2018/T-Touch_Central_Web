@@ -1,0 +1,141 @@
+﻿@{
+    ViewBag.Title = "批量下载";
+}
+<h2>批量下载</h2>
+@using (Html.BeginForm())
+{
+    <button id="btn_DownLoad" name="btn_DownLoad" type="button" class="btn  btn-sm" style="background-color:#11B544;color:white">
+        <i class="glyphicon glyphicon-download-alt"></i> 下载
+    </button>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <th style="white-space:nowrap">
+                    <input type="checkbox" id="checkedAll" name="checkedAll" />全选
+                </th>
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("ID")
+                </th>
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("表格")
+                </th>
+                <th style="white-space:nowrap">
+                    @Html.DisplayName("说明")
+                </th>
+            </tr>
+            <tr id="Row-1">
+                <td style="white-space:nowrap">
+                    <input type="checkbox" id="checkedId" name="checkedId" value="1" />
+                </td>
+                <td style="white-space:nowrap">
+                    1
+                </td>
+                <td style="white-space:nowrap">
+                    tab_user
+                </td>
+                <td style="white-space:nowrap">
+                    操作员
+                </td>
+            </tr>
+            <tr id="Row-2">
+                <td style="white-space:nowrap">
+                    <input type="checkbox" id="checkedId" name="checkedId" value="2" />
+                </td>
+                <td style="white-space:nowrap">
+                    2
+                </td>
+                <td style="white-space:nowrap">
+                    tab_department
+                </td>
+                <td style="white-space:nowrap">
+                    部门
+                </td>
+            </tr>
+            <tr id="Row-3">
+                <td style="white-space:nowrap">
+                    <input type="checkbox" id="checkedId" name="checkedId" value="3" />
+                </td>
+                <td style="white-space:nowrap">
+                    3
+                </td>
+                <td style="white-space:nowrap">
+                    tab_category_a
+                </td>
+                <td style="white-space:nowrap">
+                    分类
+                </td>
+            </tr>
+            <tr id="Row-4">
+                <td style="white-space:nowrap">
+                    <input type="checkbox" id="checkedId" name="checkedId" value="4" />
+                </td>
+                <td style="white-space:nowrap">
+                   4
+                </td>
+                <td style="white-space:nowrap">
+                    tab_product
+                </td>
+                <td style="white-space:nowrap">
+                    商品
+                </td>
+            </tr>
+            <tr id="Row-5">
+                <td style="white-space:nowrap">
+                    <input type="checkbox" id="checkedId" name="checkedId" value="5" />
+                </td>
+                <td style="white-space:nowrap">
+                    5
+                </td>
+                <td style="white-space:nowrap">
+                    tab_tax
+                </td>
+                <td style="white-space:nowrap">
+                    税率
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+<div id="dialog" style="overflow: hidden;" />
+<script src="~/Scripts/jquery-ui.js"></script>
+<script type="text/JavaScript">
+    //对话框
+    $('#dialog').dialog({
+        autoOpen: false,
+        width: 500,
+        resizable: false,
+        title: '选择称',
+        modal: true,
+        open: function (event, ui) {
+            $(this).load('@Url.Action("Scale", "Download")');
+        }
+    });
+    //表头CheckBox操作全选或取消全选
+    $("#checkedAll").click(function () {
+        var ischecked = this.checked;
+        $("input:checkbox[name='checkedId']").each(function () {
+            this.checked = ischecked;
+        });
+    });
+
+    $("#btn_DownLoad").click(function () {
+        //确定至少选择一项
+        if ($("[type='checkbox']:checked").length == 0) {
+            alert("请选择一项下载！");
+        }
+            //下载到称
+        else {
+            var ids = "";
+            $("[type='checkbox']:checked").each(function () {
+                var id = $(this).attr("value");
+                if (id != null) {
+                    ids += id + ",";
+                }
+            });
+            ids = ids.substr(0, ids.length - 1);
+            if (ids != null) {
+                $('#dialog').data("Id", ids).dialog('open');
+            }
+        }
+    });
+</script>

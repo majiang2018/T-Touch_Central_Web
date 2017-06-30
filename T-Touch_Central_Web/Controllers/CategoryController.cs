@@ -214,7 +214,7 @@ namespace T_Touch_Central_Web.Controllers
                         PingReply reply = pingSender.Send(Sql.IpAddress, timeout, buffer, options);
                         if (reply.Status == IPStatus.Success)
                         {
-                            //发送产品
+                            //发送分类
                             string[] textArray1 = new string[] { "http://", Sql.IpAddress, ":", "1235", "/category" };
                             string uri = string.Concat(textArray1);
                             result1 += HttpHelper.HttpPost(uri, categorys);
