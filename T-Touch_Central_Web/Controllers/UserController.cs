@@ -24,7 +24,6 @@ namespace T_Touch_Central_Web.Controllers
             return View(sql.OrderBy(s => s.user_num).ToPagedList(page ?? 1, 7));
         }
 
-
         // GET: User/Details/5
         public ActionResult Details(int id)
         {

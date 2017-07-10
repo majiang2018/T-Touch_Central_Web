@@ -10,7 +10,10 @@ namespace T_Touch_Central_Web
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                          "~/Scripts/jquery.js",
-                         "~/Scripts/jquery-ui.js"
+                         "~/Scripts/jquery-ui.js",
+                         "~/Scripts/jquery.fileupload-ui.js",
+                         "~/Scripts/jquery.fileupload.js",
+                         "~/Scripts/jquery.iframe-transport.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -28,7 +31,8 @@ namespace T_Touch_Central_Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                       "~/Content/jquery-ui.css"
+                      "~/Content/jquery-ui.css",
+                      "~/Content/jquery.fileupload.css"
                       ));
         }
     }

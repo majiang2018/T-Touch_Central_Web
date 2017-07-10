@@ -1,5 +1,162 @@
-﻿@{
+﻿@model FileModel
+@{
     ViewBag.Title = "标签下发";
 }
-
 <h2>标签下发</h2>
+<br />
+<p>
+    <input type="text" id="file-path" value="未选择任何文件" readonly="readonly" style="width:280px;" />
+    <span class="btn fileinput-button btn-sm" style="background-color:#2DAAF8;color:white">
+        <span>
+            <i class="glyphicon glyphicon-plus"></i>
+            添加...
+        </span>
+        @Html.TextBoxFor(m => m.MyFile, new { id = "file-upload", type = "file" })
+    </span>
+    <a class="btn btn-sm" style="background-color:#9A7EFF;color:white" href="#" id="start-upload">
+        <span>
+            <i class="glyphicon glyphicon-upload"></i>
+            上传
+        </span>
+    </a>
+    <button id="btn_Delete" name="btn_Delete" type="submit" class="btn  btn-sm" style="background-color:#FFB71F;color:white">
+        <i class="glyphicon glyphicon-remove"></i> 删除
+    </button>
+    <button id="btn_DownLoad" name="btn_DownLoad" type="button" class="btn  btn-sm" style="background-color:#11B544;color:white">
+        <i class="glyphicon glyphicon-download-alt"></i> 下载
+    </button>
+</p>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th style="white-space:nowrap">
+                <input type="checkbox" id="checkedAll" name="checkedAll" />全选
+            </th>
+            <th style="white-space:nowrap">
+                @Html.DisplayName("文件名称")
+            </th>
+            <th style="white-space:nowrap">
+                @Html.DisplayName("文件大小")
+            </th>
+            <th style="white-space:nowrap">
+                @Html.DisplayName("创建日期")
+            </th>
+        </tr>
+        @foreach (var item in Model.MyInfo)
+            {
+            <tr id="Row-@item.Name">
+                <td style="white-space:nowrap">
+                    <input type="checkbox" id="checkedId" name="checkedId" value="@item.Name" />
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.Length)字节
+                </td>
+                <td style="white-space:nowrap">
+                    @Html.DisplayFor(modelItem => item.CreationTime)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        var ZipData;
+        $(document).ready(function () {
+            'use strict';
+            $('#file-upload').fileupload({
+                url: '/File/UploadFile',
+                dataType: 'json',
+                add: function (e, data) {
+                    ZipData = data
+                },
+                done: function (event, data) {
+                    if (!data.result.isUploaded) {
+                        $("#file-path").val("未选择任何文件");
+                    }else {
+                        window.location.reload();
+                    }
+                    alert(data.result.message);
+                },
+                fail: function (event, data) {
+                    if (data.files[0].error) {
+                        alert(data.files[0].error);
+                    }
+                }
+            });
+        });
+        $("#file-upload").on('change', function () {
+            $("#file-path").val(this.files[0].name);
+        });
+        $("#start-upload").on('click', function () {
+            if (ZipData) {
+                ZipData.submit();
+            } else {
+                alert("请选择一个文件！");
+            }
+            return false;
+        });
+        //表头CheckBox操作全选或取消全选
+        $("#checkedAll").click(function () {
+            var ischecked = this.checked;
+            $("input:checkbox[name='checkedId']").each(function () {
+                this.checked = ischecked;
+            });
+        });
+        $("#btn_Delete").click(function () {
+            //确定至少选择一项
+            if ($("[type='checkbox']:checked").length == 0) {
+                alert("请选择一项删除！");
+            }
+                //批量删除
+            else if (confirm("您确定要删除选择的文件吗？")) {
+                var ids="";
+                $("[type='checkbox']:checked").each(function () {
+                    var id = $(this).attr("value");
+                    if (id != null) {
+                        ids+=id+",";
+                    }
+                });
+                ids= ids.substr(0,ids.length-1);
+                if (ids!=null) {
+                    $.ajax({
+                        url: "/Label/Delete/",
+                        data:{Id:ids},
+                        async: false,
+                        type: "POST",
+                        contentType: "application/x-www-form-urlencoded",
+                        success:function(){
+                            window.location.reload();
+                        },
+                        //调用出错执行的函数
+                        error: function () {
+                            alert("删除失败！");
+                        }
+                    });
+                }
+            }
+        });
+        $("#btn_DownLoad").click(function () {
+            //确定至少选择一项
+            if ($("[type='checkbox']:checked").length == 0) {
+                alert("请选择一项下载！");
+            }
+                //下载到称
+            else {
+                var ids = "";
+                $("[type='checkbox']:checked").each(function () {
+                    var id = $(this).attr("value");
+                    if (id != null) {
+                        ids += id + ",";
+                    }
+                });
+                ids = ids.substr(0, ids.length - 1);
+                if (ids != null) {
+                    $('#dialog').data("Id", ids).dialog('open');
+                }
+            }
+        });
+    </script>
+}
