@@ -35,7 +35,7 @@
         <div class="form-group">
             @Html.Label("称号", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.EditorFor(model => model.Pos_No, new { htmlAttributes = new { @Value = ViewBag.Message, @class = "form-control", disabled = "disabled", @readonly = "readonly" } })
+                @Html.EditorFor(model => model.Pos_No, new { htmlAttributes = new { @Value = ViewBag.Message, @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Pos_No, "", new { @class = "text-danger" })
             </div>
         </div>

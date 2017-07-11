@@ -63,11 +63,9 @@
     });
     $("#sendData").click(function () {
         var ids = window.parent.$("#dialog").data("Id");
-
         //确定至少选择一项
         if ($("input[name='checkedId1']:checked").length == 0) {
             alert("请选择一项下载！");
-
         }
             //下载到称
         else {

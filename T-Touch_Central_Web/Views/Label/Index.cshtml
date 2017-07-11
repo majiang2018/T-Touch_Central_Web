@@ -61,8 +61,21 @@
         }
     </table>
 </div>
+<div id="dialog" style="overflow: hidden;" />
+<script src="~/Scripts/jquery-ui.js"></script>
 @section scripts{
     <script type="text/javascript">
+        //对话框
+        $('#dialog').dialog({
+            autoOpen: false,
+            width: 500,
+            resizable: false,
+            title: '选择称',
+            modal: true,
+            open: function (event, ui) {
+                $(this).load('@Url.Action("Scale", "Label")');
+            }
+        });
         var ZipData;
         $(document).ready(function () {
             'use strict';
